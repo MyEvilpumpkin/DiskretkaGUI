@@ -603,64 +603,185 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 		}
 	}
 		break;
-	/*case 14:
-		SetFields(str2, str);
+	case 14: {
+		StringToZConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		else {
+			Z* z = assignmentZ(temp1.GetZ());
+			N* result = ABS_Z_N(z);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeZ(z);
+			freeN(result);
+		}
+	}
 		break;
-	case 15:
-		SetFields(str2, str);
+	case 15: {
+		StringToZConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		else {
+			Z* z = assignmentZ(temp1.GetZ());
+			int result = POZ_Z_D(z);
+			this->textBox3->Text = result.ToString(); 
+			freeZ(z);
+		}
+	}
 		break;
-	case 16:
-		SetFields(str2, str);
+	case 16: {
+		StringToZConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		else {
+			Z* z = assignmentZ(temp1.GetZ());
+			Z* result = MUL_ZM_Z(z);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeZ(z);
+			freeZ(result);
+		}
+	}
 		break;
-	case 17:
-		SetFields(str1, str);
+	case 17: {
+		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		else {
+			N* n = assignmentN(temp1.GetN());
+			Z* result = TRANS_N_Z(n);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeN(n);
+			freeZ(result);
+		}
+	}
 		break;
-	case 18:
-		SetFields(str2, str);
+	case 18: {
+		StringToZConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		else {
+			Z* z = assignmentZ(temp1.GetZ());
+			N* result = TRANS_Z_N(z);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeZ(z);
+			freeN(result);
+		}
+	}
 		break;
-	case 19:
-		SetFields(str2, str2);
+	case 19: {
+		StringToZConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToZConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			Z *z1 = assignmentZ(temp1.GetZ()), *z2 = assignmentZ(temp2.GetZ());
+			Z* result = ADD_ZZ_Z(z1, z2);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeZ(z1);
+			freeZ(z2);
+			freeZ(result);
+		}
+	}
 		break;
-	case 20:
-		SetFields(str2, str2);
+	case 20: {
+		StringToZConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToZConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			Z *z1 = assignmentZ(temp1.GetZ()), *z2 = assignmentZ(temp2.GetZ());
+			Z* result = SUB_ZZ_Z(z1, z2);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeZ(z1);
+			freeZ(z2);
+			freeZ(result);
+		}
+	}
 		break;
-	case 21:
-		SetFields(str2, str2);
+	case 21: {
+		StringToZConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToZConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			Z *z1 = assignmentZ(temp1.GetZ()), *z2 = assignmentZ(temp2.GetZ());
+			Z* result = MUL_ZZ_Z(z1, z2);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeZ(z1);
+			freeZ(z2);
+			freeZ(result);
+		}
+	}
 		break;
-	case 22:
-		SetFields(str2, str1);
+	case 22: {
+		StringToZConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			Z* z = assignmentZ(temp1.GetZ());
+			N* n = assignmentN(temp2.GetN());
+			Z* result = DIV_ZN_Z(z, n);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeZ(z);
+			freeN(n);
+			freeZ(result);
+		}
+	}
 		break;
-	case 23:
-		SetFields(str2, str1);
+	case 23: {
+		StringToZConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			Z* z = assignmentZ(temp1.GetZ());
+			N* n = assignmentN(temp2.GetN());
+			Z* result = MOD_ZN_Z(z, n);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeZ(z);
+			freeN(n);
+			freeZ(result);
+		}
+	}
 		break;
-	case 24:
+	/*case 24:
 		SetFields(str3, str);
 		break;
-	case 25:
+	/*case 25:
 		SetFields(str3, str);
 		break;
-	case 26:
+	/*case 26:
 		SetFields(str2, str);
 		break;
-	case 27:
+	/*case 27:
 		SetFields(str3, str);
 		break;
-	case 28:
+	/*case 28:
 		SetFields(str3, str3);
 		break;
-	case 29:
+	/*case 29:
 		SetFields(str3, str3);
 		break;
-	case 30:
+	/*case 30:
 		SetFields(str3, str3);
 		break;
-	case 31:
+	/*case 31:
 		SetFields(str3, str3);
 		break;
-	case 32:
+	/*case 32:
 		SetFields(str4, str4);
 		break;
-	case 33:
+	/*case 33:
 		SetFields(str4, str4);
 		break;
 	case 34:

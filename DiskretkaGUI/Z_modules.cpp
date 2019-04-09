@@ -16,13 +16,14 @@ Z* assignmentZ(Z* z)
 	result->sign = z->sign;
 	return result;
 }
-// Вывод
-//void printZ(Z* z)
-//{
-//	if (!z->sign)
-//		printf("-");
-//	printN(z->number);
-//}
+// Преобразование в строку
+std::string getString(Z* z) {
+	std::string str;
+	if (!z->sign)
+		str += '-';
+	str += getString(z->number);
+	return str;
+}
 // Освобождение памяти
 Z* freeZ(Z* z)
 {

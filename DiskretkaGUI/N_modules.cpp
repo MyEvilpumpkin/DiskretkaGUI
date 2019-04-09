@@ -63,40 +63,12 @@ N* intToN(int d)
 	}
 	return n;
 }
-
-// Ввод
-N* inputN()
-{
-	N* n = (N*)malloc(sizeof(N));
-	bool error;
-	do
-	{
-		error = false;
-		char symbol;
-		int len = 0;
-		_byte* k = nullptr;
-		do
-		{
-			symbol = getchar();
-			if ((symbol >= '0' && symbol <= '9') && !error) {
-				k = (_byte*)realloc(k, (len + 1) * sizeof(_byte));
-				k[len++] = symbol - 48;
-			}
-			else if (symbol != '\n' || !len)
-				error = true;
-		} while (symbol != '\n');
-		if (!error) {
-			n->n = (_byte*)malloc(len * sizeof(_byte));
-			n->len = len;
-			for (int i = 0; i < len; i++)
-				n->n[i] = k[len - i - 1];
-		}
-		free(k);
-		if (error)
-			printf("Введены некорректные данные. Введите натуральное число: ");
-	} while (error);
-	deNullN(n);
-	return n;
+// Перевод из N в int
+int NToInt(N* n) {
+	int d = 0;
+	for (int i = n->len - 1; i >= 0; i--)
+		d = d * 10 + n->n[i];
+	return d;
 }
 // Инициализация с обнулением
 N* zeroN()
@@ -117,11 +89,12 @@ N* assignmentN(N* n)
 	result->len = n->len;
 	return result;
 }
-// Вывод
-void printN(N* n)
-{
+// Преобразование в строку
+std::string getString(N* n) {
+	std::string str;
 	for (int i = n->len - 1; i >= 0; i--)
-		printf("%d", n->n[i]);
+		str += (n->n[i] + '0');
+	return str;
 }
 // Освобождение памяти
 N* freeN(N* n)

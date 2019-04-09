@@ -8,10 +8,9 @@ struct Z
 	bool sign; // Знак числа (0 - отрицательное)
 };
 
-Z* inputZ();        // Ввод
 Z* zeroZ();         // Инициализация с обнулением
 Z* assignmentZ(Z*); // Присваивание
-void printZ(Z*);    // Вывод
+std::string getString(Z*); // Преобразование в строку
 Z* freeZ(Z*);       // Освобождение памяти
 
 N* ABS_Z_N(Z*);      // Z-1

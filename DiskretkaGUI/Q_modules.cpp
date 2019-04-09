@@ -1,26 +1,5 @@
 #include "Q_modules.h"
 
-// Ввод
-Q* inputQ()
-{
-	Q* q = (Q*)malloc(sizeof(Q));
-	printf("Введите числитель: ");
-	q->num = inputZ();
-	printf("Введите знаменатель: ");
-	bool error;
-	do
-	{
-		error = false;
-		q->denom = inputN();
-		if (q->denom->len == 1 && q->denom->n[0] == 0)
-		{
-			error = true;
-			freeN(q->denom);
-			printf("Введены некорректные данные. Введите знаменатель > 0: ");
-		}
-	} while (error);
-	return q;
-}
 // Инициализация с обнулением
 Q* zeroQ()
 {
@@ -39,17 +18,17 @@ Q* assignmentQ(Q* q)
 	return result;
 }
 // Вывод
-void printQ(Q* q)
-{
-	if (!q->num->sign)
-		printf("- ");
-	printN(q->num->number);
-	if (q->denom->len != 1 || q->denom->n[0] != 1)
-	{
-		printf("/");
-		printN(q->denom);
-	}
-}
+//void printQ(Q* q)
+//{
+//	if (!q->num->sign)
+//		printf("- ");
+//	printN(q->num->number);
+//	if (q->denom->len != 1 || q->denom->n[0] != 1)
+//	{
+//		printf("/");
+//		printN(q->denom);
+//	}
+//}
 // Освобождение памяти
 Q* freeQ(Q* q)
 {

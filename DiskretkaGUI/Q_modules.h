@@ -8,10 +8,9 @@ struct Q
 	N* denom; // Знаменатель (натуральное число)
 };
 
-Q* inputQ();        // Ввод
 Q* zeroQ();         // Инициализация с обнулением
 Q* assignmentQ(Q*); // Присваивание
-void printQ(Q*);    // Вывод
+std::string getString(Q*); // Преобразование в строку
 Q* freeQ(Q*);       // Освобождение памяти
 
 Q* RED_Q_Q(Q*);      // Q-1

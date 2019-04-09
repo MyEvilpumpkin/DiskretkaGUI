@@ -232,6 +232,7 @@ private: System::Void ComboBox1_SelectedIndexChanged(System::Object^ sender, Sys
 	String^ str4 = "¬ведите многочлен";
 	this->textBox1->ForeColor = System::Drawing::SystemColors::WindowText;
 	this->textBox2->ForeColor = System::Drawing::SystemColors::WindowText;
+	this->textBox3->Text = "";
 	switch (this->comboBox1->SelectedIndex) {
 	case 0:
 		SetFields(str1, str1);
@@ -389,46 +390,220 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 		}
 	}
 		break;
-	/*case 1:
-		SetFields(str1, str);
+	case 1: {
+		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		else {
+			N* n = assignmentN(temp1.GetN());
+			int result = NZER_N_B(n);
+			this->textBox3->Text = result.ToString();
+			freeN(n);
+		}
+	}
 		break;
-	case 2:
-		SetFields(str1, str);
+	case 2: {
+		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		else {
+			N* n = assignmentN(temp1.GetN());
+			N* result = ADD_1N_N(n);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeN(n);
+			freeN(result);
+		}
+	}
 		break;
-	case 3:
-		SetFields(str1, str1);
+	case 3: {
+		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			N* n1 = assignmentN(temp1.GetN()), * n2 = assignmentN(temp2.GetN());
+			N* result = ADD_NN_N(n1, n2);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeN(n1);
+			freeN(n2);
+			freeN(result);
+		}
+	}
 		break;
-	case 4:
-		SetFields(str1, str1);
+	case 4: {
+		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			N *n1 = assignmentN(temp1.GetN()), *n2 = assignmentN(temp2.GetN());
+			N* result = SUB_NN_N(n1, n2);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeN(n1);
+			freeN(n2);
+			freeN(result);
+		}
+	}
 		break;
-	case 5:
-		SetFields(str1, str0);
+	case 5: {
+		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			N* n = assignmentN(temp1.GetN());
+			int d = NToInt(temp2.GetN());
+			N* result = MUL_ND_N(n, d);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeN(n);
+			freeN(result);
+		}
+	}
 		break;
-	case 6:
-		SetFields(str1, str0);
+	case 6: {
+		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			N* n = assignmentN(temp1.GetN());
+			int k = NToInt(temp2.GetN());
+			N* result = MUL_Nk_N(n, k);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeN(n);
+			freeN(result);
+		}
+	}
 		break;
-	case 7:
-		SetFields(str1, str1);
+	case 7: {
+		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			N *n1 = assignmentN(temp1.GetN()), *n2 = assignmentN(temp2.GetN());
+			N* result = MUL_NN_N(n1, n2);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeN(n1);
+			freeN(n2);
+			freeN(result);
+		}
+	}
 		break;
-	case 8:
-		SetFields(str1, str1);
+	case 8: {
+		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			N *n1 = assignmentN(temp1.GetN()), *n2 = assignmentN(temp2.GetN());
+			int d = 1;
+			N* result = SUB_NDN_N(n1, d, n2);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeN(n1);
+			freeN(n2);
+			freeN(result);
+		}
+	}
 		break;
-	case 9:
-		SetFields(str1, str1);
+	case 9: {
+		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			N *n1 = assignmentN(temp1.GetN()), *n2 = assignmentN(temp2.GetN());
+			int k = 0;
+			int result = DIV_NN_Dk(n1, n2, k);
+			this->textBox3->Text = result.ToString();
+			freeN(n1);
+			freeN(n2);
+		}
+	}
 		break;
-	case 10:
-		SetFields(str1, str1);
+	case 10: {
+		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			N* n1 = assignmentN(temp1.GetN()), * n2 = assignmentN(temp2.GetN());
+			N* result = DIV_NN_N(n1, n2);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeN(n1);
+			freeN(n2);
+			freeN(result);
+		}
+	}
 		break;
-	case 11:
-		SetFields(str1, str1);
+	case 11: {
+		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			N* n1 = assignmentN(temp1.GetN()), * n2 = assignmentN(temp2.GetN());
+			N* result = MOD_NN_N(n1, n2);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeN(n1);
+			freeN(n2);
+			freeN(result);
+		}
+	}
 		break;
-	case 12:
-		SetFields(str1, str1);
+	case 12: {
+		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			N* n1 = assignmentN(temp1.GetN()), * n2 = assignmentN(temp2.GetN());
+			N* result = GCF_NN_N(n1, n2);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeN(n1);
+			freeN(n2);
+			freeN(result);
+		}
+	}
 		break;
-	case 13:
-		SetFields(str1, str1);
+	case 13: {
+		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			N* n1 = assignmentN(temp1.GetN()), * n2 = assignmentN(temp2.GetN());
+			N* result = LCM_NN_N(n1, n2);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeN(n1);
+			freeN(n2);
+			freeN(result);
+		}
+	}
 		break;
-	case 14:
+	/*case 14:
 		SetFields(str2, str);
 		break;
 	case 15:

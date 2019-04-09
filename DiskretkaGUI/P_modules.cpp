@@ -21,54 +21,6 @@ P* deNullP(P* p)
 	return p;
 }
 
-// Ввод
-P* inputP()
-{
-	int amount;
-	int maxPower = -1;
-	P* p = (P*)malloc(sizeof(P));
-	p->k = (Q**)malloc(sizeof(Q*));
-	printf("Введите количество коэффициентов: ");
-	do
-	{
-		amount = getNumber();
-		if (amount == 0)
-			printf("Введены некорректные данные. Введите число > 0: ");
-	} while (amount == 0);
-	int* powerBuffer = (int*)malloc(amount * sizeof(int));
-	for (int i = 0; i < amount; i++)
-	{
-		printf("***\nКоэффициент %d\n", i + 1);
-		Q* temp = inputQ();
-		printf("Введите степень x: ");
-		int power = getNumber();
-		if (power > maxPower)
-		{
-			maxPower = power;
-			p->k = (Q**)realloc(p->k, (maxPower + 1) * sizeof(Q*));
-			p->len = maxPower;
-		}
-		bool f = false;
-		for (int j = 0; j < i && !f; j++)
-			if (powerBuffer[j] == power) f = true;
-		if (f)
-			freeQ(p->k[power]);
-		p->k[power] = assignmentQ(temp);
-		freeQ(temp);
-		powerBuffer[i] = power;
-	}
-	for (int i = maxPower; i >= 0; i--)
-	{
-		bool f = false;
-		for (int j = 0; j < amount && !f; j++)
-			if (powerBuffer[j] == i) f = true;
-		if (!f)
-			p->k[i] = zeroQ();
-	}
-	free(powerBuffer);
-	puts("");
-	return p;
-}
 // Инициализация с обнулением
 P* zeroP()
 {
@@ -89,35 +41,35 @@ P* assignmentP(P* p)
 	return result;
 }
 // Вывод
-void printP(P* p)
-{
-	for (int i = p->len; i >= 0; i--)
-	{
-		if (!(p->k[i]->num->number->len == 1 && p->k[i]->num->number->n[0] == 0))
-		{
-			if (i != p->len)
-				if (p->k[i]->num->sign)
-					printf("+ ");
-			if (p->k[i]->num->number->len == 1 && p->k[i]->num->number->n[0] == 1 && i != 0 && p->k[i]->denom->len == 1 && p->k[i]->denom->n[0] == 1)
-			{
-				if (!p->k[i]->num->sign)
-					printf("- ");
-			}
-			else
-			{
-				printQ(p->k[i]);
-				if (i != 0)
-					printf(" * ");
-			}
-			if (i > 1)
-				printf("x^%d ", i);
-			else if (i == 1)
-				printf("x ");
-		}
-		else if (p->len == 0)
-			printf("0");
-	}
-}
+//void printP(P* p)
+//{
+//	for (int i = p->len; i >= 0; i--)
+//	{
+//		if (!(p->k[i]->num->number->len == 1 && p->k[i]->num->number->n[0] == 0))
+//		{
+//			if (i != p->len)
+//				if (p->k[i]->num->sign)
+//					printf("+ ");
+//			if (p->k[i]->num->number->len == 1 && p->k[i]->num->number->n[0] == 1 && i != 0 && p->k[i]->denom->len == 1 && p->k[i]->denom->n[0] == 1)
+//			{
+//				if (!p->k[i]->num->sign)
+//					printf("- ");
+//			}
+//			else
+//			{
+//				printQ(p->k[i]);
+//				if (i != 0)
+//					printf(" * ");
+//			}
+//			if (i > 1)
+//				printf("x^%d ", i);
+//			else if (i == 1)
+//				printf("x ");
+//		}
+//		else if (p->len == 0)
+//			printf("0");
+//	}
+//}
 // Освобождение памяти
 P* freeP(P* p)
 {

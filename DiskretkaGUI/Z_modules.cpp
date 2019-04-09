@@ -1,44 +1,5 @@
 #include "Z_modules.h"
 
-// Ввод
-Z* inputZ() {
-	Z* z = (Z*)malloc(sizeof(Z));
-	bool error;
-	do
-	{
-		error = false;
-		z->sign = true;
-		char symbol;
-		int len = 0;
-		_byte* k = nullptr;
-		do
-		{
-			symbol = getchar();
-			if ((symbol >= '0' && symbol <= '9') && !error) {
-				k = (_byte*)realloc(k, (len + 1) * sizeof(_byte));
-				k[len++] = symbol - 48;
-			}
-			else if (symbol == '-' && !len && z->sign)
-				z->sign = false;
-			else if (symbol != '\n' || !len)
-				error = true;
-		} while (symbol != '\n');
-		if (!error) {
-			z->number = (N*)malloc(sizeof(N));
-			z->number->n = (_byte*)malloc(len * sizeof(_byte));
-			z->number->len = len;
-			for (int i = 0; i < len; i++)
-				z->number->n[i] = k[len - i - 1];
-			if (len == 1 && !z->number->n[0])
-				z->sign = true;
-			deNullN(z->number);
-		}
-		else
-			printf("Введены некорректные данные. Введите целое число: ");
-		free(k);
-	} while (error);
-	return z;
-}
 // Инициализация с обнулением
 Z* zeroZ()
 {
@@ -56,12 +17,12 @@ Z* assignmentZ(Z* z)
 	return result;
 }
 // Вывод
-void printZ(Z* z)
-{
-	if (!z->sign)
-		printf("-");
-	printN(z->number);
-}
+//void printZ(Z* z)
+//{
+//	if (!z->sign)
+//		printf("-");
+//	printN(z->number);
+//}
 // Освобождение памяти
 Z* freeZ(Z* z)
 {

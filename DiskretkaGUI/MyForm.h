@@ -1,4 +1,9 @@
 #pragma once
+#include <msclr/marshal_cppstd.h>
+#include "StringToNConverter.h"
+#include "StringToZConverter.h"
+#include "StringToQConverter.h"
+#include "StringToPConverter.h"
 
 namespace DiskretkaGUI {
 
@@ -103,6 +108,7 @@ namespace DiskretkaGUI {
 			this->textBox1->TabIndex = 1;
 			this->textBox1->Visible = false;
 			this->textBox1->Click += gcnew System::EventHandler(this, &MyForm::TextBox1_Click);
+			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::TextBox1_TextChanged);
 			// 
 			// textBox2
 			// 
@@ -116,6 +122,7 @@ namespace DiskretkaGUI {
 			this->textBox2->TabIndex = 2;
 			this->textBox2->Visible = false;
 			this->textBox2->Click += gcnew System::EventHandler(this, &MyForm::TextBox2_Click);
+			this->textBox2->TextChanged += gcnew System::EventHandler(this, &MyForm::TextBox2_TextChanged);
 			// 
 			// button1
 			// 
@@ -223,6 +230,8 @@ private: System::Void ComboBox1_SelectedIndexChanged(System::Object^ sender, Sys
 	String^ str2 = "¬ведите целое число";
 	String^ str3 = "¬ведите рациональное число";
 	String^ str4 = "¬ведите многочлен";
+	this->textBox1->ForeColor = System::Drawing::SystemColors::WindowText;
+	this->textBox2->ForeColor = System::Drawing::SystemColors::WindowText;
 	switch (this->comboBox1->SelectedIndex) {
 	case 0:
 		SetFields(str1, str1);
@@ -363,7 +372,156 @@ private: System::Void ComboBox1_SelectedIndexChanged(System::Object^ sender, Sys
 }
 
 private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e) {
-
+	switch (this->comboBox1->SelectedIndex) {
+	case 0: {
+		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			N *n1 = assignmentN(temp1.GetN()), *n2 = assignmentN(temp2.GetN());
+			int result = COM_NN_D(n1, n2);
+			this->textBox3->Text = result.ToString();
+			freeN(n1);
+			freeN(n2);
+		}
+	}
+		break;
+	/*case 1:
+		SetFields(str1, str);
+		break;
+	case 2:
+		SetFields(str1, str);
+		break;
+	case 3:
+		SetFields(str1, str1);
+		break;
+	case 4:
+		SetFields(str1, str1);
+		break;
+	case 5:
+		SetFields(str1, str0);
+		break;
+	case 6:
+		SetFields(str1, str0);
+		break;
+	case 7:
+		SetFields(str1, str1);
+		break;
+	case 8:
+		SetFields(str1, str1);
+		break;
+	case 9:
+		SetFields(str1, str1);
+		break;
+	case 10:
+		SetFields(str1, str1);
+		break;
+	case 11:
+		SetFields(str1, str1);
+		break;
+	case 12:
+		SetFields(str1, str1);
+		break;
+	case 13:
+		SetFields(str1, str1);
+		break;
+	case 14:
+		SetFields(str2, str);
+		break;
+	case 15:
+		SetFields(str2, str);
+		break;
+	case 16:
+		SetFields(str2, str);
+		break;
+	case 17:
+		SetFields(str1, str);
+		break;
+	case 18:
+		SetFields(str2, str);
+		break;
+	case 19:
+		SetFields(str2, str2);
+		break;
+	case 20:
+		SetFields(str2, str2);
+		break;
+	case 21:
+		SetFields(str2, str2);
+		break;
+	case 22:
+		SetFields(str2, str1);
+		break;
+	case 23:
+		SetFields(str2, str1);
+		break;
+	case 24:
+		SetFields(str3, str);
+		break;
+	case 25:
+		SetFields(str3, str);
+		break;
+	case 26:
+		SetFields(str2, str);
+		break;
+	case 27:
+		SetFields(str3, str);
+		break;
+	case 28:
+		SetFields(str3, str3);
+		break;
+	case 29:
+		SetFields(str3, str3);
+		break;
+	case 30:
+		SetFields(str3, str3);
+		break;
+	case 31:
+		SetFields(str3, str3);
+		break;
+	case 32:
+		SetFields(str4, str4);
+		break;
+	case 33:
+		SetFields(str4, str4);
+		break;
+	case 34:
+		SetFields(str4, str3);
+		break;
+	case 35:
+		SetFields(str4, str);
+		break;
+	case 36:
+		SetFields(str4, str);
+		break;
+	case 37:
+		SetFields(str4, str);
+		break;
+	case 38:
+		SetFields(str4, str);
+		break;
+	case 39:
+		SetFields(str4, str4);
+		break;
+	case 40:
+		SetFields(str4, str4);
+		break;
+	case 41:
+		SetFields(str4, str4);
+		break;
+	case 42:
+		SetFields(str4, str4);
+		break;
+	case 43:
+		SetFields(str4, str);
+		break;
+	case 44:
+		SetFields(str4, str);
+		break;*/
+	}
 }
 
 private: System::Void TextBox1_Click(System::Object^ sender, System::EventArgs^ e) {
@@ -384,6 +542,14 @@ private: System::Void TextBox2_Click(System::Object^ sender, System::EventArgs^ 
 	String^ str4 = "¬ведите многочлен";
 	if (this->textBox2->Text == str0 || this->textBox2->Text == str1 || this->textBox2->Text == str2 || this->textBox2->Text == str3 || this->textBox2->Text == str4)
 		this->textBox2->Text = "";
+}
+
+private: System::Void TextBox1_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	this->textBox1->ForeColor = System::Drawing::SystemColors::WindowText;
+}
+
+private: System::Void TextBox2_TextChanged(System::Object^ sender, System::EventArgs^ e) {
+	this->textBox2->ForeColor = System::Drawing::SystemColors::WindowText;
 }
 };
 }

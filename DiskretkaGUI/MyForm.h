@@ -104,6 +104,7 @@ namespace DiskretkaGUI {
 			this->textBox1->Margin = System::Windows::Forms::Padding(4);
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
+			this->textBox1->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
 			this->textBox1->Size = System::Drawing::Size(332, 122);
 			this->textBox1->TabIndex = 1;
 			this->textBox1->Visible = false;
@@ -118,6 +119,7 @@ namespace DiskretkaGUI {
 			this->textBox2->Margin = System::Windows::Forms::Padding(4);
 			this->textBox2->Multiline = true;
 			this->textBox2->Name = L"textBox2";
+			this->textBox2->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
 			this->textBox2->Size = System::Drawing::Size(332, 122);
 			this->textBox2->TabIndex = 2;
 			this->textBox2->Visible = false;
@@ -146,6 +148,7 @@ namespace DiskretkaGUI {
 			this->textBox3->Multiline = true;
 			this->textBox3->Name = L"textBox3";
 			this->textBox3->ReadOnly = true;
+			this->textBox3->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
 			this->textBox3->Size = System::Drawing::Size(332, 333);
 			this->textBox3->TabIndex = 4;
 			// 
@@ -754,29 +757,122 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 		}
 	}
 		break;
-	/*case 24:
-		SetFields(str3, str);
+	case 24: {
+		StringToQConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		else {
+			Q* q = assignmentQ(temp1.GetQ());
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(RED_Q_Q(q)));
+			freeQ(q);
+		}
+	}
 		break;
-	/*case 25:
-		SetFields(str3, str);
+	case 25: {
+		StringToQConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		else {
+			Q* q = assignmentQ(temp1.GetQ());
+			int result = INT_Q_B(q);
+			this->textBox3->Text = result.ToString();
+			freeQ(q);
+		}
+	}
 		break;
-	/*case 26:
-		SetFields(str2, str);
+	case 26: {
+		StringToZConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		else {
+			Z* z = assignmentZ(temp1.GetZ());
+			Q* result = TRANS_Z_Q(z);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeZ(z);
+			freeQ(result);
+		}
+	}
 		break;
-	/*case 27:
-		SetFields(str3, str);
+	case 27: {
+		StringToQConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		else {
+			Q* q = assignmentQ(temp1.GetQ());
+			Z* result = TRANS_Q_Z(q);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeQ(q);
+			freeZ(result);
+		}
+	}
 		break;
-	/*case 28:
-		SetFields(str3, str3);
+	case 28: {
+		StringToQConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToQConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			Q *q1 = assignmentQ(temp1.GetQ()), *q2 = assignmentQ(temp2.GetQ());
+			Q* result = ADD_QQ_Q(q1, q2);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeQ(q1);
+			freeQ(q2);
+			freeQ(result);
+		}
+	}
 		break;
-	/*case 29:
-		SetFields(str3, str3);
+	case 29: {
+		StringToQConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToQConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			Q *q1 = assignmentQ(temp1.GetQ()), *q2 = assignmentQ(temp2.GetQ());
+			Q* result = SUB_QQ_Q(q1, q2);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeQ(q1);
+			freeQ(q2);
+			freeQ(result);
+		}
+	}
 		break;
-	/*case 30:
-		SetFields(str3, str3);
+	case 30: {
+		StringToQConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToQConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			Q *q1 = assignmentQ(temp1.GetQ()), *q2 = assignmentQ(temp2.GetQ());
+			Q* result = MUL_QQ_Q(q1, q2);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeQ(q1);
+			freeQ(q2);
+			freeQ(result);
+		}
+	}
 		break;
-	/*case 31:
-		SetFields(str3, str3);
+	case 31: {
+		StringToQConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToQConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			Q *q1 = assignmentQ(temp1.GetQ()), *q2 = assignmentQ(temp2.GetQ());
+			Q* result = DIV_QQ_Q(q1, q2);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeQ(q1);
+			freeQ(q2);
+			freeQ(result);
+		}
+	}
 		break;
 	/*case 32:
 		SetFields(str4, str4);

@@ -17,18 +17,18 @@ Q* assignmentQ(Q* q)
 	result->denom = assignmentN(q->denom);
 	return result;
 }
-// Вывод
-//void printQ(Q* q)
-//{
-//	if (!q->num->sign)
-//		printf("- ");
-//	printN(q->num->number);
-//	if (q->denom->len != 1 || q->denom->n[0] != 1)
-//	{
-//		printf("/");
-//		printN(q->denom);
-//	}
-//}
+// Преобразование в строку
+std::string getString(Q* q) {
+	std::string str;
+	if (!q->num->sign)
+		str += "- ";
+	str += getString(q->num->number);
+	if (q->denom->len != 1 || q->denom->n[0] != 1) {
+		str += '/';
+		str += getString(q->denom);
+	}
+	return str;
+}
 // Освобождение памяти
 Q* freeQ(Q* q)
 {

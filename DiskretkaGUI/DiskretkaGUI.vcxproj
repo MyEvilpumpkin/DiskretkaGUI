@@ -167,6 +167,7 @@
     <ClInclude Include="P_modules.h" />
     <ClInclude Include="QRecognizer.h" />
     <ClInclude Include="Q_modules.h" />
+    <ClInclude Include="resource.h" />
     <ClInclude Include="StringToNConverter.h" />
     <ClInclude Include="StringToPConverter.h" />
     <ClInclude Include="StringToQConverter.h" />
@@ -185,6 +186,9 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="icon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

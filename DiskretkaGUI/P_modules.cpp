@@ -236,7 +236,7 @@ P* DIV_PP_P(P* p1, P* p2)
 		result->len = p1->len - p2->len;
 		result->k = (Q**)malloc((result->len + 1) * sizeof(Q*));
 		P* part = assignmentP(p1); // Остаток от деления
-		for (unsigned int i = p1->len; i >= p2->len; i--)
+		for (int i = (int)p1->len; i >= (int)p2->len; i--)
 		{
 			if (i <= part->len)
 				result->k[i - p2->len] = DIV_QQ_Q(part->k[i], p2->k[p2->len]); // Вычисления коэффициента перед степенью в результате
@@ -264,7 +264,7 @@ P* MOD_PP_P(P* p1, P* p2)
 	freeP(temp);
 	return result;
 }
-// P-11
+// P-11 (Из-за того, что коэффициенты рациональные, работает не так как ожидается)
 P* GCF_PP_P(P* p1, P* p2)
 {
 	P *result, *temp;
@@ -300,18 +300,23 @@ P* GCF_PP_P(P* p1, P* p2)
 // P-12
 P* DER_P_P(P* p)
 {
-	P* result = (P*)malloc(sizeof(P));
-	result->k = (Q**)malloc(p->len * sizeof(Q*));
-	result->len = p->len - 1;
-	for (int i = p->len - 1; i >= 0; i--) // Цикл до младшего коэффициента многочлена
-	{
-		N* iton = intToN(i + 1);
-		Z* temp = TRANS_N_Z(iton);
-		freeN(iton);
-		Q* tmp = TRANS_Z_Q(temp);
-		result->k[i] = MUL_QQ_Q(p->k[i + 1], tmp); // Присваиваем текущему коэффициенту значение 
-		freeZ(temp);
-		freeQ(tmp);
+	P* result;
+	if (!p->len)
+		result = zeroP();
+	else {
+		result = (P*)malloc(sizeof(P));
+		result->k = (Q * *)malloc(p->len * sizeof(Q*));
+		result->len = p->len - 1;
+		for (int i = p->len - 1; i >= 0; i--) // Цикл до младшего коэффициента многочлена
+		{
+			N* iton = intToN(i + 1);
+			Z * temp = TRANS_N_Z(iton);
+			freeN(iton);
+			Q * tmp = TRANS_Z_Q(temp);
+			result->k[i] = MUL_QQ_Q(p->k[i + 1], tmp); // Присваиваем текущему коэффициенту значение 
+			freeZ(temp);
+			freeQ(tmp);
+		}
 	}
 	return result;
 }

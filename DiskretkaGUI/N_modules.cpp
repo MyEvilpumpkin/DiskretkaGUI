@@ -54,6 +54,8 @@ N* intToN(int d)
 		buffer = buffer / 10;
 		len++;
 	}
+	if (!len)
+		len++;
 	n->len = len;
 	n->n = (_byte*)malloc(len * sizeof(_byte));
 	for (int i = len - 1; i >= 0; i--)

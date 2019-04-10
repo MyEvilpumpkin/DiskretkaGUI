@@ -4,6 +4,7 @@
 #include "StringToZConverter.h"
 #include "StringToQConverter.h"
 #include "StringToPConverter.h"
+#include "MyForm1.h"
 
 namespace DiskretkaGUI {
 
@@ -62,6 +63,7 @@ namespace DiskretkaGUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
 			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
@@ -175,9 +177,9 @@ namespace DiskretkaGUI {
 			this->label1->AutoSize = true;
 			this->label1->Location = System::Drawing::Point(7, 64);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(186, 24);
+			this->label1->Size = System::Drawing::Size(525, 48);
 			this->label1->TabIndex = 7;
-			this->label1->Text = L"Выберите модуль";
+			this->label1->Text = L"Выберите модуль\n\nПодробные описания модулей\nнаходятся в справке";
 			// 
 			// groupBox2
 			// 
@@ -202,11 +204,13 @@ namespace DiskretkaGUI {
 			this->Controls->Add(this->groupBox2);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->HelpButton = true;
+			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->MaximizeBox = false;
 			this->MinimizeBox = false;
 			this->Name = L"MyForm";
 			this->Text = L"Система компьютерной алгебры";
+			this->HelpButtonClicked += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::MyForm_HelpButtonClicked);
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
 			this->groupBox2->ResumeLayout(false);
@@ -233,6 +237,7 @@ private: System::Void ComboBox1_SelectedIndexChanged(System::Object^ sender, Sys
 	String^ str2 = "Введите целое число";
 	String^ str3 = "Введите рациональное число";
 	String^ str4 = "Введите многочлен";
+	this->label1->Visible = false;
 	this->textBox1->ForeColor = System::Drawing::SystemColors::WindowText;
 	this->textBox2->ForeColor = System::Drawing::SystemColors::WindowText;
 	this->textBox3->Text = "";
@@ -1106,5 +1111,11 @@ private: System::Void TextBox1_TextChanged(System::Object^ sender, System::Event
 private: System::Void TextBox2_TextChanged(System::Object^ sender, System::EventArgs^ e) {
 	this->textBox2->ForeColor = System::Drawing::SystemColors::WindowText;
 }
+
+private: System::Void MyForm_HelpButtonClicked(System::Object^ sender, System::ComponentModel::CancelEventArgs^ e) {
+	MyForm1^ form1 = gcnew MyForm1();
+	form1->Show();
+}
 };
+
 }

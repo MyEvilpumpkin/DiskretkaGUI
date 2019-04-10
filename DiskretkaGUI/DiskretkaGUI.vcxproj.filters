@@ -72,6 +72,9 @@
     <ClCompile Include="StringToZConverter.cpp">
       <Filter>Исходные файлы\Converters</Filter>
     </ClCompile>
+    <ClCompile Include="MyForm1.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MyForm.h">
@@ -113,5 +116,13 @@
     <ClInclude Include="ZRecognizer.h">
       <Filter>Файлы заголовков\Recognizers</Filter>
     </ClInclude>
+    <ClInclude Include="MyForm1.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon.ico">
+      <Filter>Файлы ресурсов</Filter>
+    </Image>
   </ItemGroup>
 </Project>

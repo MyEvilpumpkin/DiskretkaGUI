@@ -874,45 +874,208 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 		}
 	}
 		break;
-	/*case 32:
-		SetFields(str4, str4);
+	case 32: {
+		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToPConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			P *p1 = assignmentP(temp1.GetP()), *p2 = assignmentP(temp2.GetP());
+			P* result = ADD_PP_P(p1, p2);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeP(p1);
+			freeP(p2);
+			freeP(result);
+		}
+	}
 		break;
-	/*case 33:
-		SetFields(str4, str4);
+	case 33: {
+		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToPConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			P *p1 = assignmentP(temp1.GetP()), *p2 = assignmentP(temp2.GetP());
+			P* result = SUB_PP_P(p1, p2);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeP(p1);
+			freeP(p2);
+			freeP(result);
+		}
+	}
 		break;
-	case 34:
-		SetFields(str4, str3);
+	case 34: {
+		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToQConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			P* p = assignmentP(temp1.GetP());
+			Q* q = assignmentQ(temp2.GetQ());
+			P* result = MUL_PQ_P(p, q);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeP(p);
+			freeQ(q);
+			freeP(result);
+		}
+	}
 		break;
-	case 35:
-		SetFields(str4, str);
+	case 35: {
+		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			P* p = assignmentP(temp1.GetP());
+			int k = NToInt(temp2.GetN());
+			P* result = MUL_Pxk_P(p, k);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeP(p);
+			freeP(result);
+		}
+	}
 		break;
-	case 36:
-		SetFields(str4, str);
+	case 36: {
+		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		else {
+			P* p = assignmentP(temp1.GetP());
+			Q* result = LED_P_Q(p);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeP(p);
+			freeQ(result);
+		}
+	}
 		break;
-	case 37:
-		SetFields(str4, str);
+	case 37: {
+		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		else {
+			P* p = assignmentP(temp1.GetP());
+			N* result = DEG_P_N(p);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeP(p);
+			freeN(result);
+		}
+	}
 		break;
-	case 38:
-		SetFields(str4, str);
+	case 38: {
+		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		else {
+			P* p = assignmentP(temp1.GetP());
+			Q* result = FAC_P_Q(p);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeP(p);
+			freeQ(result);
+		}
+	}
 		break;
-	case 39:
-		SetFields(str4, str4);
+	case 39: {
+		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToPConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			P *p1 = assignmentP(temp1.GetP()), *p2 = assignmentP(temp2.GetP());
+			P* result = MUL_PP_P(p1, p2);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeP(p1);
+			freeP(p2);
+			freeP(result);
+		}
+	}
 		break;
-	case 40:
-		SetFields(str4, str4);
+	case 40: {
+		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToPConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			P *p1 = assignmentP(temp1.GetP()), *p2 = assignmentP(temp2.GetP());
+			P* result = DIV_PP_P(p1, p2);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeP(p1);
+			freeP(p2);
+			freeP(result);
+		}
+	}
 		break;
-	case 41:
-		SetFields(str4, str4);
+	case 41: {
+		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToPConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			P *p1 = assignmentP(temp1.GetP()), *p2 = assignmentP(temp2.GetP());
+			P* result = MOD_PP_P(p1, p2);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeP(p1);
+			freeP(p2);
+			freeP(result);
+		}
+	}
 		break;
-	case 42:
-		SetFields(str4, str4);
+	case 42: {
+		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		StringToPConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		if (!temp2.GetStatus())
+			this->textBox2->ForeColor = System::Drawing::Color::Red;
+		if (temp1.GetStatus() && temp2.GetStatus()) {
+			P *p1 = assignmentP(temp1.GetP()), *p2 = assignmentP(temp2.GetP());
+			P* result = GCF_PP_P(p1, p2);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeP(p1);
+			freeP(p2);
+			freeP(result);
+		}
+	}
 		break;
-	case 43:
-		SetFields(str4, str);
+	case 43: {
+		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		else {
+			P* p = assignmentP(temp1.GetP());
+			P* result = DER_P_P(p);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeP(p);
+			freeP(result);
+		}
+	}
 		break;
-	case 44:
-		SetFields(str4, str);
-		break;*/
+	case 44: {
+		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+		if (!temp1.GetStatus())
+			this->textBox1->ForeColor = System::Drawing::Color::Red;
+		else {
+			P* p = assignmentP(temp1.GetP());
+			P* result = NMR_P_P(p);
+			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
+			freeP(p);
+			freeP(result);
+		}
+	}
+		break;
 	}
 }
 

@@ -1,4 +1,5 @@
 #include "P_modules.h"
+#include <msclr/marshal_cppstd.h>
 
 // Удаление незначащих слагаемых со старшими коэффициентами
 P* deNullP(P* p)
@@ -40,36 +41,36 @@ P* assignmentP(P* p)
 		result->k[i] = assignmentQ(p->k[i]);
 	return result;
 }
-// Вывод
-//void printP(P* p)
-//{
-//	for (int i = p->len; i >= 0; i--)
-//	{
-//		if (!(p->k[i]->num->number->len == 1 && p->k[i]->num->number->n[0] == 0))
-//		{
-//			if (i != p->len)
-//				if (p->k[i]->num->sign)
-//					printf("+ ");
-//			if (p->k[i]->num->number->len == 1 && p->k[i]->num->number->n[0] == 1 && i != 0 && p->k[i]->denom->len == 1 && p->k[i]->denom->n[0] == 1)
-//			{
-//				if (!p->k[i]->num->sign)
-//					printf("- ");
-//			}
-//			else
-//			{
-//				printQ(p->k[i]);
-//				if (i != 0)
-//					printf(" * ");
-//			}
-//			if (i > 1)
-//				printf("x^%d ", i);
-//			else if (i == 1)
-//				printf("x ");
-//		}
-//		else if (p->len == 0)
-//			printf("0");
-//	}
-//}
+// Преобразование в строку
+std::string getString(P* p) {
+	std::string str;
+	for (int i = p->len; i >= 0; i--) {
+		if (!(p->k[i]->num->number->len == 1 && p->k[i]->num->number->n[0] == 0)) {
+			if (i != p->len)
+				if (p->k[i]->num->sign)
+					str += "+ ";
+			if (p->k[i]->num->number->len == 1 && p->k[i]->num->number->n[0] == 1 && i != 0 && p->k[i]->denom->len == 1 && p->k[i]->denom->n[0] == 1) {
+				if (!p->k[i]->num->sign)
+					str += "- ";
+			}
+			else {
+				str += getString(p->k[i]);
+				if (i != 0)
+					str += " * ";
+			}
+			if (i > 1) {
+				str += "x^";
+				str += msclr::interop::marshal_as<std::string>(i.ToString());
+				str += " ";
+			}
+			else if (i == 1)
+				str += "x ";
+		}
+		else if (p->len == 0)
+			str += "0";
+	}
+	return str;
+}
 // Освобождение памяти
 P* freeP(P* p)
 {

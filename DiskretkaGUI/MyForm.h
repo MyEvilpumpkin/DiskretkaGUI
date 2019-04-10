@@ -381,6 +381,7 @@ private: System::Void ComboBox1_SelectedIndexChanged(System::Object^ sender, Sys
 }
 
 private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->textBox3->Text = "";
 	switch (this->comboBox1->SelectedIndex) {
 	case 0: {
 		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));

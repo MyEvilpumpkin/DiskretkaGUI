@@ -8,7 +8,7 @@ class PRecognizer {
 	int pos;
 	bool status;
 	void RemoveChar(char ch) { str.erase(remove(str.begin(), str.end(), ch), str.end()); }
-	void Recognize() { RemoveChar(' ');  status = _polyn(); }
+	void Recognize() { RemoveChar(' ');  status = _polyn(); if (str.length() == 1 && str[0] == '0') status = true; }
 	bool _polyn();
 	bool _first_part();
 	bool _sign_or_nothing();

@@ -7,7 +7,7 @@ class NRecognizer {
 	int pos;
 	bool status;
 	void RemoveChar(char ch) { str.erase(remove(str.begin(), str.end(), ch), str.end()); }
-	void Recognize() { RemoveChar(' ');  status = _n(); }
+	void Recognize() { RemoveChar(' ');  status = _n(); if (str.length() == 1 && str[0] == '0') status = true; }
 	bool _n();
 	bool _num();
 	bool _first_digit();

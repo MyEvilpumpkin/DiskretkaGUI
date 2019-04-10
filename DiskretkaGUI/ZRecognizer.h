@@ -7,7 +7,7 @@ class ZRecognizer {
 	int pos;
 	bool status;
 	void RemoveChar(char ch) { str.erase(remove(str.begin(), str.end(), ch), str.end()); }
-	void Recognize() { RemoveChar(' ');  status = _z(); }
+	void Recognize() { RemoveChar(' ');  status = _z(); if (str.length() == 1 && str[0] == '0') status = true; }
 	bool _z();
 	bool _num();
 	bool _first_digit();

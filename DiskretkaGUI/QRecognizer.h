@@ -8,7 +8,7 @@ class QRecognizer {
 	int pos;
 	bool status;
 	void RemoveChar(char ch) { str.erase(remove(str.begin(), str.end(), ch), str.end()); }
-	void Recognize() { RemoveChar(' ');  status = _q(); }
+	void Recognize() { RemoveChar(' ');  status = _q(); if (str.length() == 1 && str[0] == '0') status = true; }
 	bool _q();
 	bool _coef();
 	bool _num();

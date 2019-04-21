@@ -137,7 +137,7 @@ namespace DiskretkaGUI {
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(333, 33);
 			this->button1->TabIndex = 3;
-			this->button1->Text = L"Произвести расчет";
+			this->button1->Text = L"Вычислить";
 			this->button1->UseVisualStyleBackColor = true;
 			this->button1->Click += gcnew System::EventHandler(this, &MyForm::Button1_Click);
 			// 
@@ -177,7 +177,7 @@ namespace DiskretkaGUI {
 			this->label1->AutoSize = true;
 			this->label1->Location = System::Drawing::Point(7, 64);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(525, 48);
+			this->label1->Size = System::Drawing::Size(312, 96);
 			this->label1->TabIndex = 7;
 			this->label1->Text = L"Выберите модуль\n\nПодробные описания модулей\nнаходятся в справке";
 			// 

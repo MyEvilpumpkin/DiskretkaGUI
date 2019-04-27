@@ -62,11 +62,12 @@ namespace DiskretkaGUI {
 				static_cast<System::Byte>(204)));
 			this->textBox1->ImeMode = System::Windows::Forms::ImeMode::NoControl;
 			this->textBox1->Location = System::Drawing::Point(0, 0);
+			this->textBox1->Margin = System::Windows::Forms::Padding(2, 2, 2, 2);
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->ReadOnly = true;
 			this->textBox1->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->textBox1->Size = System::Drawing::Size(739, 395);
+			this->textBox1->Size = System::Drawing::Size(554, 321);
 			this->textBox1->TabIndex = 0;
 			this->textBox1->TabStop = false;
 			this->textBox1->Text = resources->GetString(L"textBox1.Text");
@@ -74,14 +75,12 @@ namespace DiskretkaGUI {
 			// 
 			// HelpForm
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(739, 395);
+			this->ClientSize = System::Drawing::Size(554, 321);
 			this->Controls->Add(this->textBox1);
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
-			this->Margin = System::Windows::Forms::Padding(4);
-			this->MaximizeBox = false;
-			this->MinimizeBox = false;
+			this->MinimumSize = System::Drawing::Size(570, 360);
 			this->Name = L"HelpForm";
 			this->Text = L"Справка";
 			this->ResumeLayout(false);

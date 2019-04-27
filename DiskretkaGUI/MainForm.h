@@ -91,10 +91,9 @@ namespace DiskretkaGUI {
 					L"Q-8 - DIV_QQ_Q", L"P-1 - ADD_PP_P", L"P-2 - SUB_PP_P", L"P-3 - MUL_PQ_P", L"P-4 - MUL_Pxk_P", L"P-5 - LED_P_Q", L"P-6 - DEG_P_N",
 					L"P-7 - FAC_P_Q", L"P-8 - MUL_PP_P", L"P-9 - DIV_PP_P", L"P-10 - MOD_PP_P", L"P-11 - GCF_PP_P", L"P-12 - DER_P_P", L"P-13 - NMR_P_P"
 			});
-			this->comboBox1->Location = System::Drawing::Point(8, 28);
-			this->comboBox1->Margin = System::Windows::Forms::Padding(4);
+			this->comboBox1->Location = System::Drawing::Point(6, 23);
 			this->comboBox1->Name = L"comboBox1";
-			this->comboBox1->Size = System::Drawing::Size(332, 32);
+			this->comboBox1->Size = System::Drawing::Size(250, 26);
 			this->comboBox1->TabIndex = 0;
 			this->comboBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::ComboBox1_SelectedIndexChanged);
 			// 
@@ -102,12 +101,11 @@ namespace DiskretkaGUI {
 			// 
 			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox1->Location = System::Drawing::Point(8, 68);
-			this->textBox1->Margin = System::Windows::Forms::Padding(4);
+			this->textBox1->Location = System::Drawing::Point(6, 55);
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->textBox1->Size = System::Drawing::Size(332, 122);
+			this->textBox1->Size = System::Drawing::Size(250, 100);
 			this->textBox1->TabIndex = 1;
 			this->textBox1->Visible = false;
 			this->textBox1->Click += gcnew System::EventHandler(this, &MainForm::TextBox1_Click);
@@ -117,12 +115,11 @@ namespace DiskretkaGUI {
 			// 
 			this->textBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox2->Location = System::Drawing::Point(8, 198);
-			this->textBox2->Margin = System::Windows::Forms::Padding(4);
+			this->textBox2->Location = System::Drawing::Point(6, 161);
 			this->textBox2->Multiline = true;
 			this->textBox2->Name = L"textBox2";
 			this->textBox2->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->textBox2->Size = System::Drawing::Size(332, 122);
+			this->textBox2->Size = System::Drawing::Size(250, 100);
 			this->textBox2->TabIndex = 2;
 			this->textBox2->Visible = false;
 			this->textBox2->Click += gcnew System::EventHandler(this, &MainForm::TextBox2_Click);
@@ -132,10 +129,9 @@ namespace DiskretkaGUI {
 			// 
 			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button1->Location = System::Drawing::Point(8, 329);
-			this->button1->Margin = System::Windows::Forms::Padding(4);
+			this->button1->Location = System::Drawing::Point(6, 267);
 			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(333, 33);
+			this->button1->Size = System::Drawing::Size(250, 27);
 			this->button1->TabIndex = 3;
 			this->button1->Text = L"Вычислить";
 			this->button1->UseVisualStyleBackColor = true;
@@ -145,13 +141,12 @@ namespace DiskretkaGUI {
 			// 
 			this->textBox3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox3->Location = System::Drawing::Point(8, 28);
-			this->textBox3->Margin = System::Windows::Forms::Padding(4);
+			this->textBox3->Location = System::Drawing::Point(6, 23);
 			this->textBox3->Multiline = true;
 			this->textBox3->Name = L"textBox3";
 			this->textBox3->ReadOnly = true;
 			this->textBox3->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->textBox3->Size = System::Drawing::Size(332, 333);
+			this->textBox3->Size = System::Drawing::Size(250, 271);
 			this->textBox3->TabIndex = 4;
 			// 
 			// groupBox1
@@ -163,11 +158,9 @@ namespace DiskretkaGUI {
 			this->groupBox1->Controls->Add(this->label1);
 			this->groupBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->groupBox1->Location = System::Drawing::Point(16, 15);
-			this->groupBox1->Margin = System::Windows::Forms::Padding(4);
+			this->groupBox1->Location = System::Drawing::Point(12, 12);
 			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Padding = System::Windows::Forms::Padding(4);
-			this->groupBox1->Size = System::Drawing::Size(349, 369);
+			this->groupBox1->Size = System::Drawing::Size(262, 300);
 			this->groupBox1->TabIndex = 5;
 			this->groupBox1->TabStop = false;
 			this->groupBox1->Text = L"Ввод";
@@ -175,9 +168,10 @@ namespace DiskretkaGUI {
 			// label1
 			// 
 			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(7, 64);
+			this->label1->Location = System::Drawing::Point(5, 52);
+			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(312, 96);
+			this->label1->Size = System::Drawing::Size(250, 72);
 			this->label1->TabIndex = 7;
 			this->label1->Text = L"Выберите модуль\n\nПодробные описания модулей\nнаходятся в справке";
 			// 
@@ -186,28 +180,26 @@ namespace DiskretkaGUI {
 			this->groupBox2->Controls->Add(this->textBox3);
 			this->groupBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->groupBox2->Location = System::Drawing::Point(373, 15);
-			this->groupBox2->Margin = System::Windows::Forms::Padding(4);
+			this->groupBox2->Location = System::Drawing::Point(280, 12);
 			this->groupBox2->Name = L"groupBox2";
-			this->groupBox2->Padding = System::Windows::Forms::Padding(4);
-			this->groupBox2->Size = System::Drawing::Size(349, 369);
+			this->groupBox2->Size = System::Drawing::Size(262, 300);
 			this->groupBox2->TabIndex = 6;
 			this->groupBox2->TabStop = false;
 			this->groupBox2->Text = L"Вывод";
 			// 
 			// MainForm
 			// 
-			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
+			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(739, 395);
+			this->ClientSize = System::Drawing::Size(554, 321);
 			this->Controls->Add(this->groupBox1);
 			this->Controls->Add(this->groupBox2);
 			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
 			this->HelpButton = true;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
-			this->Margin = System::Windows::Forms::Padding(4);
 			this->MaximizeBox = false;
 			this->MinimizeBox = false;
+			this->MinimumSize = System::Drawing::Size(570, 360);
 			this->Name = L"MainForm";
 			this->Text = L"Система компьютерной алгебры";
 			this->HelpButtonClicked += gcnew System::ComponentModel::CancelEventHandler(this, &MainForm::MyForm_HelpButtonClicked);

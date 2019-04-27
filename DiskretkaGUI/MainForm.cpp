@@ -1,10 +1,10 @@
-#include "MyForm.h"
+#include "MainForm.h"
 using namespace System;
 using namespace System::Windows::Forms;
 [STAThread]
 void main(array<String^>^ args) {
 	Application::EnableVisualStyles();
 	Application::SetCompatibleTextRenderingDefault(false);
-	DiskretkaGUI::MyForm form;
-	Application::Run(%form);
+	DiskretkaGUI::MainForm mainForm;
+	Application::Run(%mainForm);
 }

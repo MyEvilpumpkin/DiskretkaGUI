@@ -10,12 +10,12 @@ namespace DiskretkaGUI {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// Сводка для MyForm1
+	/// Сводка для HelpForm
 	/// </summary>
-	public ref class MyForm1 : public System::Windows::Forms::Form
+	public ref class HelpForm : public System::Windows::Forms::Form
 	{
 	public:
-		MyForm1(void)
+		HelpForm(void)
 		{
 			InitializeComponent();
 			//
@@ -27,7 +27,7 @@ namespace DiskretkaGUI {
 		/// <summary>
 		/// Освободить все используемые ресурсы.
 		/// </summary>
-		~MyForm1()
+		~HelpForm()
 		{
 			if (components)
 			{
@@ -50,7 +50,7 @@ namespace DiskretkaGUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm1::typeid));
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(HelpForm::typeid));
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->SuspendLayout();
 			// 
@@ -70,9 +70,9 @@ namespace DiskretkaGUI {
 			this->textBox1->TabIndex = 0;
 			this->textBox1->TabStop = false;
 			this->textBox1->Text = resources->GetString(L"textBox1.Text");
-			this->textBox1->Click += gcnew System::EventHandler(this, &MyForm1::TextBox1_Click);
+			this->textBox1->Click += gcnew System::EventHandler(this, &HelpForm::TextBox1_Click);
 			// 
-			// MyForm1
+			// HelpForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
@@ -82,7 +82,7 @@ namespace DiskretkaGUI {
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->MaximizeBox = false;
 			this->MinimizeBox = false;
-			this->Name = L"MyForm1";
+			this->Name = L"HelpForm";
 			this->Text = L"Справка";
 			this->ResumeLayout(false);
 			this->PerformLayout();

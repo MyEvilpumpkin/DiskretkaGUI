@@ -4,7 +4,7 @@
 #include "StringToZConverter.h"
 #include "StringToQConverter.h"
 #include "StringToPConverter.h"
-#include "MyForm1.h"
+#include "HelpForm.h"
 
 namespace DiskretkaGUI {
 
@@ -16,12 +16,12 @@ namespace DiskretkaGUI {
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// Сводка для MyForm
+	/// Сводка для MainForm
 	/// </summary>
-	public ref class MyForm : public System::Windows::Forms::Form
+	public ref class MainForm : public System::Windows::Forms::Form
 	{
 	public:
-		MyForm(void)
+		MainForm(void)
 		{
 			InitializeComponent();
 			//
@@ -33,7 +33,7 @@ namespace DiskretkaGUI {
 		/// <summary>
 		/// Освободить все используемые ресурсы.
 		/// </summary>
-		~MyForm()
+		~MainForm()
 		{
 			if (components)
 			{
@@ -63,7 +63,7 @@ namespace DiskretkaGUI {
 		/// </summary>
 		void InitializeComponent(void)
 		{
-			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MyForm::typeid));
+			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
 			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
 			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
 			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
@@ -96,7 +96,7 @@ namespace DiskretkaGUI {
 			this->comboBox1->Name = L"comboBox1";
 			this->comboBox1->Size = System::Drawing::Size(332, 32);
 			this->comboBox1->TabIndex = 0;
-			this->comboBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &MyForm::ComboBox1_SelectedIndexChanged);
+			this->comboBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::ComboBox1_SelectedIndexChanged);
 			// 
 			// textBox1
 			// 
@@ -110,8 +110,8 @@ namespace DiskretkaGUI {
 			this->textBox1->Size = System::Drawing::Size(332, 122);
 			this->textBox1->TabIndex = 1;
 			this->textBox1->Visible = false;
-			this->textBox1->Click += gcnew System::EventHandler(this, &MyForm::TextBox1_Click);
-			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MyForm::TextBox1_TextChanged);
+			this->textBox1->Click += gcnew System::EventHandler(this, &MainForm::TextBox1_Click);
+			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MainForm::TextBox1_TextChanged);
 			// 
 			// textBox2
 			// 
@@ -125,8 +125,8 @@ namespace DiskretkaGUI {
 			this->textBox2->Size = System::Drawing::Size(332, 122);
 			this->textBox2->TabIndex = 2;
 			this->textBox2->Visible = false;
-			this->textBox2->Click += gcnew System::EventHandler(this, &MyForm::TextBox2_Click);
-			this->textBox2->TextChanged += gcnew System::EventHandler(this, &MyForm::TextBox2_TextChanged);
+			this->textBox2->Click += gcnew System::EventHandler(this, &MainForm::TextBox2_Click);
+			this->textBox2->TextChanged += gcnew System::EventHandler(this, &MainForm::TextBox2_TextChanged);
 			// 
 			// button1
 			// 
@@ -139,7 +139,7 @@ namespace DiskretkaGUI {
 			this->button1->TabIndex = 3;
 			this->button1->Text = L"Вычислить";
 			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &MyForm::Button1_Click);
+			this->button1->Click += gcnew System::EventHandler(this, &MainForm::Button1_Click);
 			// 
 			// textBox3
 			// 
@@ -195,7 +195,7 @@ namespace DiskretkaGUI {
 			this->groupBox2->TabStop = false;
 			this->groupBox2->Text = L"Вывод";
 			// 
-			// MyForm
+			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
@@ -208,9 +208,9 @@ namespace DiskretkaGUI {
 			this->Margin = System::Windows::Forms::Padding(4);
 			this->MaximizeBox = false;
 			this->MinimizeBox = false;
-			this->Name = L"MyForm";
+			this->Name = L"MainForm";
 			this->Text = L"Система компьютерной алгебры";
-			this->HelpButtonClicked += gcnew System::ComponentModel::CancelEventHandler(this, &MyForm::MyForm_HelpButtonClicked);
+			this->HelpButtonClicked += gcnew System::ComponentModel::CancelEventHandler(this, &MainForm::MyForm_HelpButtonClicked);
 			this->groupBox1->ResumeLayout(false);
 			this->groupBox1->PerformLayout();
 			this->groupBox2->ResumeLayout(false);
@@ -1114,8 +1114,8 @@ private: System::Void TextBox2_TextChanged(System::Object^ sender, System::Event
 }
 
 private: System::Void MyForm_HelpButtonClicked(System::Object^ sender, System::ComponentModel::CancelEventArgs^ e) {
-	MyForm1^ form1 = gcnew MyForm1();
-	form1->Show();
+	HelpForm^ helpForm = gcnew HelpForm();
+	helpForm->Show();
 }
 };
 

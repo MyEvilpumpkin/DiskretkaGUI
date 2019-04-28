@@ -1,7 +1,5 @@
 #include "NRecognizer.h"
 
-using namespace std;
-
 bool NRecognizer::_n() {
 	bool isCorrect = true;
 	isCorrect = _num();
@@ -43,3 +41,4 @@ bool NRecognizer::_digit() {
 		isCorrect = false;
 	return isCorrect;
 }
+

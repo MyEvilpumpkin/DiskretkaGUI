@@ -40,14 +40,24 @@ namespace DiskretkaGUI {
 				delete components;
 			}
 		}
-	private: System::Windows::Forms::ComboBox^  comboBox1;
-	private: System::Windows::Forms::TextBox^  textBox1;
-	private: System::Windows::Forms::TextBox^  textBox2;
-	private: System::Windows::Forms::Button^  button1;
+
+
+
+
 	private: System::Windows::Forms::TextBox^  textBox3;
-	private: System::Windows::Forms::GroupBox^  groupBox1;
-	private: System::Windows::Forms::GroupBox^  groupBox2;
+	private: System::Windows::Forms::TableLayoutPanel^ tableLayoutPanel1;
+	private: System::Windows::Forms::Button^ button1;
+	private: System::Windows::Forms::TextBox^ textBox2;
+	private: System::Windows::Forms::TextBox^ textBox1;
+	private: System::Windows::Forms::ComboBox^ comboBox1;
+
+	private: System::Windows::Forms::Label^ label2;
 	private: System::Windows::Forms::Label^ label1;
+	private: System::Windows::Forms::StatusStrip^ statusStrip1;
+	private: System::Windows::Forms::ToolStripStatusLabel^ toolStripStatusLabel1;
+
+
+
 	protected:
 
 	private:
@@ -64,20 +74,81 @@ namespace DiskretkaGUI {
 		void InitializeComponent(void)
 		{
 			System::ComponentModel::ComponentResourceManager^ resources = (gcnew System::ComponentModel::ComponentResourceManager(MainForm::typeid));
-			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
-			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
-			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
-			this->button1 = (gcnew System::Windows::Forms::Button());
 			this->textBox3 = (gcnew System::Windows::Forms::TextBox());
-			this->groupBox1 = (gcnew System::Windows::Forms::GroupBox());
+			this->textBox2 = (gcnew System::Windows::Forms::TextBox());
+			this->textBox1 = (gcnew System::Windows::Forms::TextBox());
+			this->button1 = (gcnew System::Windows::Forms::Button());
+			this->comboBox1 = (gcnew System::Windows::Forms::ComboBox());
+			this->tableLayoutPanel1 = (gcnew System::Windows::Forms::TableLayoutPanel());
+			this->label2 = (gcnew System::Windows::Forms::Label());
 			this->label1 = (gcnew System::Windows::Forms::Label());
-			this->groupBox2 = (gcnew System::Windows::Forms::GroupBox());
-			this->groupBox1->SuspendLayout();
-			this->groupBox2->SuspendLayout();
+			this->statusStrip1 = (gcnew System::Windows::Forms::StatusStrip());
+			this->toolStripStatusLabel1 = (gcnew System::Windows::Forms::ToolStripStatusLabel());
+			this->tableLayoutPanel1->SuspendLayout();
+			this->statusStrip1->SuspendLayout();
 			this->SuspendLayout();
+			// 
+			// textBox3
+			// 
+			this->textBox3->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->textBox3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBox3->Location = System::Drawing::Point(280, 35);
+			this->textBox3->Multiline = true;
+			this->textBox3->Name = L"textBox3";
+			this->textBox3->ReadOnly = true;
+			this->tableLayoutPanel1->SetRowSpan(this->textBox3, 4);
+			this->textBox3->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
+			this->textBox3->Size = System::Drawing::Size(271, 250);
+			this->textBox3->TabIndex = 4;
+			this->textBox3->Text = L"Выберите модуль\r\n\r\nПодробные описания модулей находятся в справке (для вызова справки нажмите F1)";
+			// 
+			// textBox2
+			// 
+			this->textBox2->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->textBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBox2->Location = System::Drawing::Point(3, 163);
+			this->textBox2->Multiline = true;
+			this->textBox2->Name = L"textBox2";
+			this->textBox2->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
+			this->textBox2->Size = System::Drawing::Size(271, 90);
+			this->textBox2->TabIndex = 2;
+			this->textBox2->Visible = false;
+			this->textBox2->Click += gcnew System::EventHandler(this, &MainForm::TextBox2_Click);
+			this->textBox2->TextChanged += gcnew System::EventHandler(this, &MainForm::TextBox2_TextChanged);
+			// 
+			// textBox1
+			// 
+			this->textBox1->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->textBox1->Location = System::Drawing::Point(3, 67);
+			this->textBox1->Multiline = true;
+			this->textBox1->Name = L"textBox1";
+			this->textBox1->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
+			this->textBox1->Size = System::Drawing::Size(271, 90);
+			this->textBox1->TabIndex = 1;
+			this->textBox1->Visible = false;
+			this->textBox1->Click += gcnew System::EventHandler(this, &MainForm::TextBox1_Click);
+			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MainForm::TextBox1_TextChanged);
+			// 
+			// button1
+			// 
+			this->button1->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
+			this->button1->Location = System::Drawing::Point(3, 259);
+			this->button1->Name = L"button1";
+			this->button1->Size = System::Drawing::Size(271, 26);
+			this->button1->TabIndex = 3;
+			this->button1->Text = L"Вычислить";
+			this->button1->UseVisualStyleBackColor = true;
+			this->button1->Click += gcnew System::EventHandler(this, &MainForm::Button1_Click);
 			// 
 			// comboBox1
 			// 
+			this->comboBox1->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->comboBox1->DropDownStyle = System::Windows::Forms::ComboBoxStyle::DropDownList;
 			this->comboBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
@@ -91,122 +162,104 @@ namespace DiskretkaGUI {
 					L"Q-8 - DIV_QQ_Q", L"P-1 - ADD_PP_P", L"P-2 - SUB_PP_P", L"P-3 - MUL_PQ_P", L"P-4 - MUL_Pxk_P", L"P-5 - LED_P_Q", L"P-6 - DEG_P_N",
 					L"P-7 - FAC_P_Q", L"P-8 - MUL_PP_P", L"P-9 - DIV_PP_P", L"P-10 - MOD_PP_P", L"P-11 - GCF_PP_P", L"P-12 - DER_P_P", L"P-13 - NMR_P_P"
 			});
-			this->comboBox1->Location = System::Drawing::Point(6, 23);
+			this->comboBox1->Location = System::Drawing::Point(3, 35);
 			this->comboBox1->Name = L"comboBox1";
-			this->comboBox1->Size = System::Drawing::Size(250, 26);
+			this->comboBox1->Size = System::Drawing::Size(271, 26);
 			this->comboBox1->TabIndex = 0;
 			this->comboBox1->SelectedIndexChanged += gcnew System::EventHandler(this, &MainForm::ComboBox1_SelectedIndexChanged);
 			// 
-			// textBox1
+			// tableLayoutPanel1
 			// 
-			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+			this->tableLayoutPanel1->ColumnCount = 2;
+			this->tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				50)));
+			this->tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
+				50)));
+			this->tableLayoutPanel1->Controls->Add(this->button1, 0, 4);
+			this->tableLayoutPanel1->Controls->Add(this->textBox2, 0, 3);
+			this->tableLayoutPanel1->Controls->Add(this->textBox1, 0, 2);
+			this->tableLayoutPanel1->Controls->Add(this->comboBox1, 0, 1);
+			this->tableLayoutPanel1->Controls->Add(this->textBox3, 1, 1);
+			this->tableLayoutPanel1->Controls->Add(this->label2, 1, 0);
+			this->tableLayoutPanel1->Controls->Add(this->label1, 0, 0);
+			this->tableLayoutPanel1->Controls->Add(this->statusStrip1, 0, 5);
+			this->tableLayoutPanel1->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->tableLayoutPanel1->Location = System::Drawing::Point(0, 0);
+			this->tableLayoutPanel1->Name = L"tableLayoutPanel1";
+			this->tableLayoutPanel1->RowCount = 6;
+			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 32)));
+			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 32)));
+			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 50)));
+			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 50)));
+			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 32)));
+			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 32)));
+			this->tableLayoutPanel1->Size = System::Drawing::Size(554, 321);
+			this->tableLayoutPanel1->TabIndex = 8;
+			// 
+			// label2
+			// 
+			this->label2->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->label2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox1->Location = System::Drawing::Point(6, 55);
-			this->textBox1->Multiline = true;
-			this->textBox1->Name = L"textBox1";
-			this->textBox1->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->textBox1->Size = System::Drawing::Size(250, 100);
-			this->textBox1->TabIndex = 1;
-			this->textBox1->Visible = false;
-			this->textBox1->Click += gcnew System::EventHandler(this, &MainForm::TextBox1_Click);
-			this->textBox1->TextChanged += gcnew System::EventHandler(this, &MainForm::TextBox1_TextChanged);
-			// 
-			// textBox2
-			// 
-			this->textBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->textBox2->Location = System::Drawing::Point(6, 161);
-			this->textBox2->Multiline = true;
-			this->textBox2->Name = L"textBox2";
-			this->textBox2->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->textBox2->Size = System::Drawing::Size(250, 100);
-			this->textBox2->TabIndex = 2;
-			this->textBox2->Visible = false;
-			this->textBox2->Click += gcnew System::EventHandler(this, &MainForm::TextBox2_Click);
-			this->textBox2->TextChanged += gcnew System::EventHandler(this, &MainForm::TextBox2_TextChanged);
-			// 
-			// button1
-			// 
-			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->button1->Location = System::Drawing::Point(6, 267);
-			this->button1->Name = L"button1";
-			this->button1->Size = System::Drawing::Size(250, 27);
-			this->button1->TabIndex = 3;
-			this->button1->Text = L"Вычислить";
-			this->button1->UseVisualStyleBackColor = true;
-			this->button1->Click += gcnew System::EventHandler(this, &MainForm::Button1_Click);
-			// 
-			// textBox3
-			// 
-			this->textBox3->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->textBox3->Location = System::Drawing::Point(6, 23);
-			this->textBox3->Multiline = true;
-			this->textBox3->Name = L"textBox3";
-			this->textBox3->ReadOnly = true;
-			this->textBox3->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->textBox3->Size = System::Drawing::Size(250, 271);
-			this->textBox3->TabIndex = 4;
-			// 
-			// groupBox1
-			// 
-			this->groupBox1->Controls->Add(this->comboBox1);
-			this->groupBox1->Controls->Add(this->button1);
-			this->groupBox1->Controls->Add(this->textBox1);
-			this->groupBox1->Controls->Add(this->textBox2);
-			this->groupBox1->Controls->Add(this->label1);
-			this->groupBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
-				static_cast<System::Byte>(204)));
-			this->groupBox1->Location = System::Drawing::Point(12, 12);
-			this->groupBox1->Name = L"groupBox1";
-			this->groupBox1->Size = System::Drawing::Size(262, 300);
-			this->groupBox1->TabIndex = 5;
-			this->groupBox1->TabStop = false;
-			this->groupBox1->Text = L"Ввод";
+			this->label2->Location = System::Drawing::Point(280, 0);
+			this->label2->Name = L"label2";
+			this->label2->Size = System::Drawing::Size(271, 32);
+			this->label2->TabIndex = 8;
+			this->label2->Text = L"Вывод";
+			this->label2->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			// 
 			// label1
 			// 
-			this->label1->AutoSize = true;
-			this->label1->Location = System::Drawing::Point(5, 52);
-			this->label1->Margin = System::Windows::Forms::Padding(2, 0, 2, 0);
-			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(250, 72);
-			this->label1->TabIndex = 7;
-			this->label1->Text = L"Выберите модуль\n\nПодробные описания модулей\nнаходятся в справке";
-			// 
-			// groupBox2
-			// 
-			this->groupBox2->Controls->Add(this->textBox3);
-			this->groupBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
+			this->label1->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->groupBox2->Location = System::Drawing::Point(280, 12);
-			this->groupBox2->Name = L"groupBox2";
-			this->groupBox2->Size = System::Drawing::Size(262, 300);
-			this->groupBox2->TabIndex = 6;
-			this->groupBox2->TabStop = false;
-			this->groupBox2->Text = L"Вывод";
+			this->label1->Location = System::Drawing::Point(3, 0);
+			this->label1->Name = L"label1";
+			this->label1->Size = System::Drawing::Size(271, 32);
+			this->label1->TabIndex = 9;
+			this->label1->Text = L"Ввод";
+			this->label1->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			// 
+			// statusStrip1
+			// 
+			this->tableLayoutPanel1->SetColumnSpan(this->statusStrip1, 2);
+			this->statusStrip1->Dock = System::Windows::Forms::DockStyle::Fill;
+			this->statusStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->toolStripStatusLabel1 });
+			this->statusStrip1->Location = System::Drawing::Point(0, 288);
+			this->statusStrip1->Name = L"statusStrip1";
+			this->statusStrip1->Size = System::Drawing::Size(554, 33);
+			this->statusStrip1->TabIndex = 10;
+			this->statusStrip1->Text = L"statusStrip1";
+			// 
+			// toolStripStatusLabel1
+			// 
+			this->toolStripStatusLabel1->AutoSize = false;
+			this->toolStripStatusLabel1->BackColor = System::Drawing::SystemColors::Control;
+			this->toolStripStatusLabel1->DisplayStyle = System::Windows::Forms::ToolStripItemDisplayStyle::Text;
+			this->toolStripStatusLabel1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Italic,
+				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
+			this->toolStripStatusLabel1->Name = L"toolStripStatusLabel1";
+			this->toolStripStatusLabel1->Size = System::Drawing::Size(539, 28);
+			this->toolStripStatusLabel1->Spring = true;
+			this->toolStripStatusLabel1->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			// 
 			// MainForm
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(6, 13);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(554, 321);
-			this->Controls->Add(this->groupBox1);
-			this->Controls->Add(this->groupBox2);
-			this->FormBorderStyle = System::Windows::Forms::FormBorderStyle::FixedSingle;
+			this->Controls->Add(this->tableLayoutPanel1);
 			this->HelpButton = true;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
-			this->MaximizeBox = false;
-			this->MinimizeBox = false;
 			this->MinimumSize = System::Drawing::Size(570, 360);
 			this->Name = L"MainForm";
 			this->Text = L"Система компьютерной алгебры";
 			this->HelpButtonClicked += gcnew System::ComponentModel::CancelEventHandler(this, &MainForm::MyForm_HelpButtonClicked);
-			this->groupBox1->ResumeLayout(false);
-			this->groupBox1->PerformLayout();
-			this->groupBox2->ResumeLayout(false);
-			this->groupBox2->PerformLayout();
+			this->HelpRequested += gcnew System::Windows::Forms::HelpEventHandler(this, &MainForm::MainForm_HelpRequested);
+			this->tableLayoutPanel1->ResumeLayout(false);
+			this->tableLayoutPanel1->PerformLayout();
+			this->statusStrip1->ResumeLayout(false);
+			this->statusStrip1->PerformLayout();
 			this->ResumeLayout(false);
 
 		}
@@ -229,10 +282,10 @@ private: System::Void ComboBox1_SelectedIndexChanged(System::Object^ sender, Sys
 	String^ str2 = "Введите целое число";
 	String^ str3 = "Введите рациональное число";
 	String^ str4 = "Введите многочлен";
-	this->label1->Visible = false;
 	this->textBox1->ForeColor = System::Drawing::SystemColors::WindowText;
 	this->textBox2->ForeColor = System::Drawing::SystemColors::WindowText;
 	this->textBox3->Text = "";
+	this->toolStripStatusLabel1->Text = "";
 	switch (this->comboBox1->SelectedIndex) {
 	case 0:
 		SetFields(str1, str1);
@@ -373,6 +426,7 @@ private: System::Void ComboBox1_SelectedIndexChanged(System::Object^ sender, Sys
 }
 
 private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e) {
+	this->toolStripStatusLabel1->Text = "";
 	this->textBox3->Text = "";
 	switch (this->comboBox1->SelectedIndex) {
 	case 0: {
@@ -1074,6 +1128,10 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 		}
 	}
 		break;
+	default:
+		this->toolStripStatusLabel1->Text = "Ошибка: Модуль не выбран";
+		this->textBox3->Text = "Выберите модуль\r\n\r\nПодробные описания модулей находятся в справке (для вызова справки нажмите F1)";
+		break;
 	}
 }
 
@@ -1109,6 +1167,9 @@ private: System::Void MyForm_HelpButtonClicked(System::Object^ sender, System::C
 	HelpForm^ helpForm = gcnew HelpForm();
 	helpForm->Show();
 }
+private: System::Void MainForm_HelpRequested(System::Object^ sender, System::Windows::Forms::HelpEventArgs^ hlpevent) {
+	HelpForm^ helpForm = gcnew HelpForm();
+	helpForm->Show();
+}
 };
-
 }

@@ -2,7 +2,7 @@
 #include <msclr/marshal_cppstd.h>
 #include "P.h"
 #include "Exceptions.h"
-#include "HelpForm.h"
+#include "ModuleDescriptionForm.h"
 
 namespace DiskretkaGUI {
 
@@ -1692,12 +1692,12 @@ private: System::Void TextBox2_TextChanged(System::Object^ sender, System::Event
 }
 
 private: System::Void MyForm_HelpButtonClicked(System::Object^ sender, System::ComponentModel::CancelEventArgs^ e) {
-	HelpForm^ helpForm = gcnew HelpForm();
-	helpForm->Show();
+	ModuleDescriptionForm^ moduleDescriptionForm = gcnew ModuleDescriptionForm();
+	moduleDescriptionForm->Show();
 }
 private: System::Void MainForm_HelpRequested(System::Object^ sender, System::Windows::Forms::HelpEventArgs^ hlpevent) {
-	HelpForm^ helpForm = gcnew HelpForm();
-	helpForm->Show();
+	ModuleDescriptionForm^ moduleDescriptionForm = gcnew ModuleDescriptionForm();
+	moduleDescriptionForm->Show();
 }
 };
 }

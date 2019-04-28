@@ -13,106 +13,67 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Исходные файлы\Modules">
-      <UniqueIdentifier>{51291915-bc2e-46ba-bca7-01393a1af3cb}</UniqueIdentifier>
+    <Filter Include="Исходные файлы\N">
+      <UniqueIdentifier>{d9a07f50-426e-4340-964f-4b6e8d60bd35}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\Converters">
-      <UniqueIdentifier>{39a7171a-5e59-4442-bfd6-cb1a8ea9dc55}</UniqueIdentifier>
+    <Filter Include="Исходные файлы\Z">
+      <UniqueIdentifier>{e32689be-575b-4a27-bbf7-30e5401cb4d0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Исходные файлы\Recognizers">
-      <UniqueIdentifier>{cf719992-6bd7-426d-a408-c9801c445699}</UniqueIdentifier>
+    <Filter Include="Исходные файлы\Q">
+      <UniqueIdentifier>{e52e019e-e120-4729-92a1-b0e44b6f4c3e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\Modules">
-      <UniqueIdentifier>{59777c78-4a2d-445e-abb6-0d1113c7b2d1}</UniqueIdentifier>
+    <Filter Include="Исходные файлы\P">
+      <UniqueIdentifier>{3f536d08-7af9-44b0-9ff1-94d5d85c8584}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\Converters">
-      <UniqueIdentifier>{876fb96a-9163-4832-8d89-4351b4b0b14c}</UniqueIdentifier>
+    <Filter Include="Файлы заголовков\N">
+      <UniqueIdentifier>{d8c960f7-3359-4f83-a8d4-b93288b884de}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Файлы заголовков\Recognizers">
-      <UniqueIdentifier>{1fe6d2b0-5dcd-413e-9530-669a2ec82995}</UniqueIdentifier>
+    <Filter Include="Файлы заголовков\Z">
+      <UniqueIdentifier>{9c4dcaa3-b2e8-4528-b737-66545278ecdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Q">
+      <UniqueIdentifier>{82942ccb-d4ba-40a8-bdd3-409c6d10e6d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\P">
+      <UniqueIdentifier>{37d6524b-1698-4fbd-99f3-91a5b98853d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Файлы заголовков\Additions">
+      <UniqueIdentifier>{b15d8deb-a6f0-435a-bb52-38147a516448}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="N_modules.cpp">
-      <Filter>Исходные файлы\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="P_modules.cpp">
-      <Filter>Исходные файлы\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="Q_modules.cpp">
-      <Filter>Исходные файлы\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="Z_modules.cpp">
-      <Filter>Исходные файлы\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="NRecognizer.cpp">
-      <Filter>Исходные файлы\Recognizers</Filter>
-    </ClCompile>
-    <ClCompile Include="PRecognizer.cpp">
-      <Filter>Исходные файлы\Recognizers</Filter>
-    </ClCompile>
-    <ClCompile Include="QRecognizer.cpp">
-      <Filter>Исходные файлы\Recognizers</Filter>
-    </ClCompile>
-    <ClCompile Include="ZRecognizer.cpp">
-      <Filter>Исходные файлы\Recognizers</Filter>
-    </ClCompile>
-    <ClCompile Include="StringToNConverter.cpp">
-      <Filter>Исходные файлы\Converters</Filter>
-    </ClCompile>
-    <ClCompile Include="StringToQConverter.cpp">
-      <Filter>Исходные файлы\Converters</Filter>
-    </ClCompile>
-    <ClCompile Include="StringToPConverter.cpp">
-      <Filter>Исходные файлы\Converters</Filter>
-    </ClCompile>
-    <ClCompile Include="StringToZConverter.cpp">
-      <Filter>Исходные файлы\Converters</Filter>
-    </ClCompile>
     <ClCompile Include="MainForm.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
     <ClCompile Include="HelpForm.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="N.cpp">
+      <Filter>Исходные файлы\N</Filter>
+    </ClCompile>
+    <ClCompile Include="NRecognizer.cpp">
+      <Filter>Исходные файлы\N</Filter>
+    </ClCompile>
+    <ClCompile Include="ZRecognizer.cpp">
+      <Filter>Исходные файлы\Z</Filter>
+    </ClCompile>
+    <ClCompile Include="Z.cpp">
+      <Filter>Исходные файлы\Z</Filter>
+    </ClCompile>
+    <ClCompile Include="Q.cpp">
+      <Filter>Исходные файлы\Q</Filter>
+    </ClCompile>
+    <ClCompile Include="QRecognizer.cpp">
+      <Filter>Исходные файлы\Q</Filter>
+    </ClCompile>
+    <ClCompile Include="P.cpp">
+      <Filter>Исходные файлы\P</Filter>
+    </ClCompile>
+    <ClCompile Include="PRecognizer.cpp">
+      <Filter>Исходные файлы\P</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Z_modules.h">
-      <Filter>Файлы заголовков\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Q_modules.h">
-      <Filter>Файлы заголовков\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="P_modules.h">
-      <Filter>Файлы заголовков\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="N_modules.h">
-      <Filter>Файлы заголовков\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="StringToNConverter.h">
-      <Filter>Файлы заголовков\Converters</Filter>
-    </ClInclude>
-    <ClInclude Include="StringToPConverter.h">
-      <Filter>Файлы заголовков\Converters</Filter>
-    </ClInclude>
-    <ClInclude Include="StringToQConverter.h">
-      <Filter>Файлы заголовков\Converters</Filter>
-    </ClInclude>
-    <ClInclude Include="StringToZConverter.h">
-      <Filter>Файлы заголовков\Converters</Filter>
-    </ClInclude>
-    <ClInclude Include="NRecognizer.h">
-      <Filter>Файлы заголовков\Recognizers</Filter>
-    </ClInclude>
-    <ClInclude Include="PRecognizer.h">
-      <Filter>Файлы заголовков\Recognizers</Filter>
-    </ClInclude>
-    <ClInclude Include="QRecognizer.h">
-      <Filter>Файлы заголовков\Recognizers</Filter>
-    </ClInclude>
-    <ClInclude Include="ZRecognizer.h">
-      <Filter>Файлы заголовков\Recognizers</Filter>
-    </ClInclude>
     <ClInclude Include="resource.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -121,6 +82,42 @@
     </ClInclude>
     <ClInclude Include="HelpForm.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="N.h">
+      <Filter>Файлы заголовков\N</Filter>
+    </ClInclude>
+    <ClInclude Include="NRecognizer.h">
+      <Filter>Файлы заголовков\N</Filter>
+    </ClInclude>
+    <ClInclude Include="Recognizer.h">
+      <Filter>Файлы заголовков\Z</Filter>
+    </ClInclude>
+    <ClInclude Include="Z.h">
+      <Filter>Файлы заголовков\Z</Filter>
+    </ClInclude>
+    <ClInclude Include="ZRecognizer.h">
+      <Filter>Файлы заголовков\Z</Filter>
+    </ClInclude>
+    <ClInclude Include="Q.h">
+      <Filter>Файлы заголовков\Q</Filter>
+    </ClInclude>
+    <ClInclude Include="QRecognizer.h">
+      <Filter>Файлы заголовков\Q</Filter>
+    </ClInclude>
+    <ClInclude Include="PRecognizer.h">
+      <Filter>Файлы заголовков\P</Filter>
+    </ClInclude>
+    <ClInclude Include="P.h">
+      <Filter>Файлы заголовков\P</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions.h">
+      <Filter>Файлы заголовков\Additions</Filter>
+    </ClInclude>
+    <ClInclude Include="SpecialType.h">
+      <Filter>Файлы заголовков\Additions</Filter>
+    </ClInclude>
+    <ClInclude Include="TemplateOperations.h">
+      <Filter>Файлы заголовков\Additions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

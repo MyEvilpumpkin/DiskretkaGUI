@@ -141,39 +141,35 @@
   <ItemGroup>
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="HelpForm.cpp" />
+    <ClCompile Include="N.cpp" />
     <ClCompile Include="NRecognizer.cpp" />
-    <ClCompile Include="N_modules.cpp" />
+    <ClCompile Include="P.cpp" />
     <ClCompile Include="PRecognizer.cpp" />
-    <ClCompile Include="P_modules.cpp" />
+    <ClCompile Include="Q.cpp" />
     <ClCompile Include="QRecognizer.cpp" />
-    <ClCompile Include="Q_modules.cpp" />
-    <ClCompile Include="StringToNConverter.cpp" />
-    <ClCompile Include="StringToPConverter.cpp" />
-    <ClCompile Include="StringToQConverter.cpp" />
-    <ClCompile Include="StringToZConverter.cpp" />
+    <ClCompile Include="Z.cpp" />
     <ClCompile Include="ZRecognizer.cpp" />
-    <ClCompile Include="Z_modules.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Exceptions.h" />
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="HelpForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
+    <ClInclude Include="N.h" />
     <ClInclude Include="NRecognizer.h" />
-    <ClInclude Include="N_modules.h" />
+    <ClInclude Include="P.h" />
     <ClInclude Include="PRecognizer.h" />
-    <ClInclude Include="P_modules.h" />
+    <ClInclude Include="Q.h" />
     <ClInclude Include="QRecognizer.h" />
-    <ClInclude Include="Q_modules.h" />
+    <ClInclude Include="Recognizer.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="StringToNConverter.h" />
-    <ClInclude Include="StringToPConverter.h" />
-    <ClInclude Include="StringToQConverter.h" />
-    <ClInclude Include="StringToZConverter.h" />
+    <ClInclude Include="SpecialType.h" />
+    <ClInclude Include="TemplateOperations.h" />
+    <ClInclude Include="Z.h" />
     <ClInclude Include="ZRecognizer.h" />
-    <ClInclude Include="Z_modules.h" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="MainForm.resx">

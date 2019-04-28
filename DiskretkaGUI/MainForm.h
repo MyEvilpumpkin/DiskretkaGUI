@@ -1,9 +1,7 @@
 #pragma once
 #include <msclr/marshal_cppstd.h>
-#include "StringToNConverter.h"
-#include "StringToZConverter.h"
-#include "StringToQConverter.h"
-#include "StringToPConverter.h"
+#include "P.h"
+#include "Exceptions.h"
 #include "HelpForm.h"
 
 namespace DiskretkaGUI {
@@ -393,7 +391,7 @@ private: System::Void ComboBox1_SelectedIndexChanged(System::Object^ sender, Sys
 		SetFields(str4, str3);
 		break;
 	case 35:
-		SetFields(str4, str);
+		SetFields(str4, str0);
 		break;
 	case 36:
 		SetFields(str4, str);
@@ -426,712 +424,1235 @@ private: System::Void ComboBox1_SelectedIndexChanged(System::Object^ sender, Sys
 }
 
 private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e) {
-	this->toolStripStatusLabel1->Text = "";
-	this->textBox3->Text = "";
-	switch (this->comboBox1->SelectedIndex) {
-	case 0: {
-		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			N *n1 = assignmentN(temp1.GetN()), *n2 = assignmentN(temp2.GetN());
-			int result = COM_NN_D(n1, n2);
-			this->textBox3->Text = result.ToString();
-			freeN(n1);
-			freeN(n2);
+	try {
+		this->textBox3->Text = "";
+		this->toolStripStatusLabel1->Text = "Вычисление...";
+		switch (this->comboBox1->SelectedIndex) {
+			case 0:
+			{
+				N n1, n2;
+				int result;
+				bool initializationIsCorrect = true;
+				try {
+					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = COM_NN_D(n1, n2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = result.ToString();
+			}
+			break;
+			case 1:
+			{
+				N n;
+				bool result;
+				bool initializationIsCorrect = true;
+				try {
+					n = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = NZER_N_B(n);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = result.ToString();
+			}
+			break;
+			case 2:
+			{
+				N n, result;
+				bool initializationIsCorrect = true;
+				try {
+					n = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = ADD_1N_N(n);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 3:
+			{
+				N n1, n2, result;
+				bool initializationIsCorrect = true;
+				try {
+					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = ADD_NN_N(n1, n2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 4:
+			{
+				N n1, n2, result;
+				bool initializationIsCorrect = true;
+				try {
+					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = SUB_NN_N(n1, n2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 5:
+			{
+				N n1, n2, result;
+				bool initializationIsCorrect = true;
+				try {
+					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = MUL_ND_N(n1, n2.ToUInt());
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 6:
+			{
+				N n1, n2, result;
+				bool initializationIsCorrect = true;
+				try {
+					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = MUL_Nk_N(n1, n2.ToUInt());
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 7:
+			{
+				N n1, n2, result;
+				bool initializationIsCorrect = true;
+				try {
+					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = MUL_NN_N(n1, n2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 8:
+			{
+				N n1, n2, result;
+				bool initializationIsCorrect = true;
+				try {
+					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = SUB_NDN_N(n1, 1, n2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 9:
+			{
+				N n1, n2;
+				int result, k;
+				bool initializationIsCorrect = true;
+				try {
+					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = DIV_NN_Dk(n1, n2, k);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = result.ToString();
+			}
+			break;
+			case 10:
+			{
+				N n1, n2, result;
+				bool initializationIsCorrect = true;
+				try {
+					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = DIV_NN_N(n1, n2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 11:
+			{
+				N n1, n2, result;
+				bool initializationIsCorrect = true;
+				try {
+					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = MOD_NN_N(n1, n2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 12:
+			{
+				N n1, n2, result;
+				bool initializationIsCorrect = true;
+				try {
+					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = GCF_NN_N(n1, n2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 13:
+			{
+				N n1, n2, result;
+				bool initializationIsCorrect = true;
+				try {
+					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = LCM_NN_N(n1, n2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 14:
+			{
+				Z z;
+				N result;
+				bool initializationIsCorrect = true;
+				try {
+					z = Z(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = ABS_Z_N(z);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 15:
+			{
+				Z z;
+				int result;
+				bool initializationIsCorrect = true;
+				try {
+					z = Z(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = POZ_Z_D(z);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = result.ToString();
+			}
+			break;
+			case 16:
+			{
+				Z z, result;
+				bool initializationIsCorrect = true;
+				try {
+					z = Z(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = MUL_ZM_Z(z);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 17:
+			{
+				N n;
+				Z result;
+				bool initializationIsCorrect = true;
+				try {
+					n = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = TRANS_N_Z(n);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 18:
+			{
+				Z z;
+				N result;
+				bool initializationIsCorrect = true;
+				try {
+					z = Z(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = TRANS_Z_N(z);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 19:
+			{
+				Z z1, z2, result;
+				bool initializationIsCorrect = true;
+				try {
+					z1 = Z(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					z2 = Z(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = ADD_ZZ_Z(z1, z2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 20:
+			{
+				Z z1, z2, result;
+				bool initializationIsCorrect = true;
+				try {
+					z1 = Z(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					z2 = Z(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = SUB_ZZ_Z(z1, z2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 21:
+			{
+				Z z1, z2, result;
+				bool initializationIsCorrect = true;
+				try {
+					z1 = Z(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					z2 = Z(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = MUL_ZZ_Z(z1, z2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 22:
+			{
+				Z z, result;
+				N n;
+				bool initializationIsCorrect = true;
+				try {
+					z = Z(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					n = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = DIV_ZN_Z(z, n);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 23:
+			{
+				Z z, result;
+				N n;
+				bool initializationIsCorrect = true;
+				try {
+					z = Z(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					n = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = MOD_ZN_Z(z, n);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 24:
+			{
+				Q q, result;
+				bool initializationIsCorrect = true;
+				try {
+					q = Q(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = RED_Q_Q(q);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 25:
+			{
+				Q q;
+				bool result;
+				bool initializationIsCorrect = true;
+				try {
+					q = Q(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = INT_Q_B(q);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = result.ToString();
+			}
+			break;
+			case 26:
+			{
+				Z z;
+				Q result;
+				bool initializationIsCorrect = true;
+				try {
+					z = Z(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = TRANS_Z_Q(z);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 27:
+			{
+				Q q;
+				Z result;
+				bool initializationIsCorrect = true;
+				try {
+					q = Q(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = TRANS_Q_Z(q);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 28:
+			{
+				Q q1, q2, result;
+				bool initializationIsCorrect = true;
+				try {
+					q1 = Q(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					q2 = Q(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = ADD_QQ_Q(q1, q2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 29:
+			{
+				Q q1, q2, result;
+				bool initializationIsCorrect = true;
+				try {
+					q1 = Q(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					q2 = Q(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = SUB_QQ_Q(q1, q2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 30:
+			{
+				Q q1, q2, result;
+				bool initializationIsCorrect = true;
+				try {
+					q1 = Q(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					q2 = Q(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = MUL_QQ_Q(q1, q2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 31:
+			{
+				Q q1, q2, result;
+				bool initializationIsCorrect = true;
+				try {
+					q1 = Q(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					q2 = Q(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = DIV_QQ_Q(q1, q2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 32:
+			{
+				P p1, p2, result;
+				bool initializationIsCorrect = true;
+				try {
+					p1 = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					p2 = P(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = ADD_PP_P(p1, p2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 33:
+			{
+				P p1, p2, result;
+				bool initializationIsCorrect = true;
+				try {
+					p1 = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					p2 = P(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = SUB_PP_P(p1, p2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 34:
+			{
+				P p, result;
+				Q q;
+				bool initializationIsCorrect = true;
+				try {
+					p = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					q = Q(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = MUL_PQ_P(p, q);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 35:
+			{
+				P p, result;
+				N n;
+				bool initializationIsCorrect = true;
+				try {
+					p = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					n = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = MUL_Pxk_P(p, n.ToUInt());
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 36:
+			{
+				P p;
+				Q result;
+				bool initializationIsCorrect = true;
+				try {
+					p = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = LED_P_Q(p);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 37:
+			{
+				P p;
+				N result;
+				bool initializationIsCorrect = true;
+				try {
+					p = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = DEG_P_N(p);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 38:
+			{
+				P p;
+				Q result;
+				bool initializationIsCorrect = true;
+				try {
+					p = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = FAC_P_Q(p);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 39:
+			{
+				P p1, p2, result;
+				bool initializationIsCorrect = true;
+				try {
+					p1 = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					p2 = P(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = MUL_PP_P(p1, p2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 40:
+			{
+				P p1, p2, result;
+				bool initializationIsCorrect = true;
+				try {
+					p1 = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					p2 = P(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = DIV_PP_P(p1, p2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 41:
+			{
+				P p1, p2, result;
+				bool initializationIsCorrect = true;
+				try {
+					p1 = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					p2 = P(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = MOD_PP_P(p1, p2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 42:
+			{
+				P p1, p2, result;
+				bool initializationIsCorrect = true;
+				try {
+					p1 = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				try {
+					p2 = P(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox2->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = GCF_PP_P(p1, p2);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 43:
+			{
+				P p, result;
+				bool initializationIsCorrect = true;
+				try {
+					p = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = DER_P_P(p);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			case 44:
+			{
+				P p, result;
+				bool initializationIsCorrect = true;
+				try {
+					p = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+				}
+				catch (IncorrectString) {
+					this->textBox1->ForeColor = System::Drawing::Color::Red;
+					initializationIsCorrect = false;
+				}
+				if (!initializationIsCorrect)
+					throw Error("Ошибка: Введены некорректные данные");
+				try {
+					result = NMR_P_P(p);
+				}
+				catch (ArithmeticalError ex) {
+					throw Error(ex.what());
+				}
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+			}
+			break;
+			default:
+				this->textBox3->Text = "Выберите модуль\r\n\r\nПодробные описания модулей находятся в справке (для вызова справки нажмите F1)";
+				throw Error("Ошибка: Модуль не выбран");
+			break;
 		}
+		this->toolStripStatusLabel1->Text = "Готово";
 	}
-		break;
-	case 1: {
-		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		else {
-			N* n = assignmentN(temp1.GetN());
-			int result = NZER_N_B(n);
-			this->textBox3->Text = result.ToString();
-			freeN(n);
-		}
+	catch (Error ex) {
+		this->toolStripStatusLabel1->Text = msclr::interop::marshal_as<String^>(ex.what());
 	}
-		break;
-	case 2: {
-		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		else {
-			N* n = assignmentN(temp1.GetN());
-			N* result = ADD_1N_N(n);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeN(n);
-			freeN(result);
-		}
+	catch (std::bad_alloc) {
+		this->toolStripStatusLabel1->Text = "Ошибка: недостаточно памяти";
 	}
-		break;
-	case 3: {
-		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			N* n1 = assignmentN(temp1.GetN()), * n2 = assignmentN(temp2.GetN());
-			N* result = ADD_NN_N(n1, n2);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeN(n1);
-			freeN(n2);
-			freeN(result);
-		}
-	}
-		break;
-	case 4: {
-		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			N *n1 = assignmentN(temp1.GetN()), *n2 = assignmentN(temp2.GetN());
-			N* result = SUB_NN_N(n1, n2);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeN(n1);
-			freeN(n2);
-			freeN(result);
-		}
-	}
-		break;
-	case 5: {
-		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			N* n = assignmentN(temp1.GetN());
-			int d = NToInt(temp2.GetN());
-			N* result = MUL_ND_N(n, d);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeN(n);
-			freeN(result);
-		}
-	}
-		break;
-	case 6: {
-		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			N* n = assignmentN(temp1.GetN());
-			int k = NToInt(temp2.GetN());
-			N* result = MUL_Nk_N(n, k);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeN(n);
-			freeN(result);
-		}
-	}
-		break;
-	case 7: {
-		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			N *n1 = assignmentN(temp1.GetN()), *n2 = assignmentN(temp2.GetN());
-			N* result = MUL_NN_N(n1, n2);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeN(n1);
-			freeN(n2);
-			freeN(result);
-		}
-	}
-		break;
-	case 8: {
-		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			N *n1 = assignmentN(temp1.GetN()), *n2 = assignmentN(temp2.GetN());
-			int d = 1;
-			N* result = SUB_NDN_N(n1, d, n2);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeN(n1);
-			freeN(n2);
-			freeN(result);
-		}
-	}
-		break;
-	case 9: {
-		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			N *n1 = assignmentN(temp1.GetN()), *n2 = assignmentN(temp2.GetN());
-			int k = 0;
-			int result = DIV_NN_Dk(n1, n2, k);
-			this->textBox3->Text = result.ToString();
-			freeN(n1);
-			freeN(n2);
-		}
-	}
-		break;
-	case 10: {
-		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			N* n1 = assignmentN(temp1.GetN()), * n2 = assignmentN(temp2.GetN());
-			N* result = DIV_NN_N(n1, n2);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeN(n1);
-			freeN(n2);
-			freeN(result);
-		}
-	}
-		break;
-	case 11: {
-		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			N* n1 = assignmentN(temp1.GetN()), * n2 = assignmentN(temp2.GetN());
-			N* result = MOD_NN_N(n1, n2);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeN(n1);
-			freeN(n2);
-			freeN(result);
-		}
-	}
-		break;
-	case 12: {
-		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			N* n1 = assignmentN(temp1.GetN()), * n2 = assignmentN(temp2.GetN());
-			N* result = GCF_NN_N(n1, n2);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeN(n1);
-			freeN(n2);
-			freeN(result);
-		}
-	}
-		break;
-	case 13: {
-		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			N* n1 = assignmentN(temp1.GetN()), * n2 = assignmentN(temp2.GetN());
-			N* result = LCM_NN_N(n1, n2);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeN(n1);
-			freeN(n2);
-			freeN(result);
-		}
-	}
-		break;
-	case 14: {
-		StringToZConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		else {
-			Z* z = assignmentZ(temp1.GetZ());
-			N* result = ABS_Z_N(z);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeZ(z);
-			freeN(result);
-		}
-	}
-		break;
-	case 15: {
-		StringToZConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		else {
-			Z* z = assignmentZ(temp1.GetZ());
-			int result = POZ_Z_D(z);
-			this->textBox3->Text = result.ToString(); 
-			freeZ(z);
-		}
-	}
-		break;
-	case 16: {
-		StringToZConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		else {
-			Z* z = assignmentZ(temp1.GetZ());
-			Z* result = MUL_ZM_Z(z);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeZ(z);
-			freeZ(result);
-		}
-	}
-		break;
-	case 17: {
-		StringToNConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		else {
-			N* n = assignmentN(temp1.GetN());
-			Z* result = TRANS_N_Z(n);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeN(n);
-			freeZ(result);
-		}
-	}
-		break;
-	case 18: {
-		StringToZConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		else {
-			Z* z = assignmentZ(temp1.GetZ());
-			N* result = TRANS_Z_N(z);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeZ(z);
-			freeN(result);
-		}
-	}
-		break;
-	case 19: {
-		StringToZConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToZConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			Z *z1 = assignmentZ(temp1.GetZ()), *z2 = assignmentZ(temp2.GetZ());
-			Z* result = ADD_ZZ_Z(z1, z2);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeZ(z1);
-			freeZ(z2);
-			freeZ(result);
-		}
-	}
-		break;
-	case 20: {
-		StringToZConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToZConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			Z *z1 = assignmentZ(temp1.GetZ()), *z2 = assignmentZ(temp2.GetZ());
-			Z* result = SUB_ZZ_Z(z1, z2);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeZ(z1);
-			freeZ(z2);
-			freeZ(result);
-		}
-	}
-		break;
-	case 21: {
-		StringToZConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToZConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			Z *z1 = assignmentZ(temp1.GetZ()), *z2 = assignmentZ(temp2.GetZ());
-			Z* result = MUL_ZZ_Z(z1, z2);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeZ(z1);
-			freeZ(z2);
-			freeZ(result);
-		}
-	}
-		break;
-	case 22: {
-		StringToZConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			Z* z = assignmentZ(temp1.GetZ());
-			N* n = assignmentN(temp2.GetN());
-			Z* result = DIV_ZN_Z(z, n);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeZ(z);
-			freeN(n);
-			freeZ(result);
-		}
-	}
-		break;
-	case 23: {
-		StringToZConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			Z* z = assignmentZ(temp1.GetZ());
-			N* n = assignmentN(temp2.GetN());
-			Z* result = MOD_ZN_Z(z, n);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeZ(z);
-			freeN(n);
-			freeZ(result);
-		}
-	}
-		break;
-	case 24: {
-		StringToQConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		else {
-			Q* q = assignmentQ(temp1.GetQ());
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(RED_Q_Q(q)));
-			freeQ(q);
-		}
-	}
-		break;
-	case 25: {
-		StringToQConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		else {
-			Q* q = assignmentQ(temp1.GetQ());
-			int result = INT_Q_B(q);
-			this->textBox3->Text = result.ToString();
-			freeQ(q);
-		}
-	}
-		break;
-	case 26: {
-		StringToZConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		else {
-			Z* z = assignmentZ(temp1.GetZ());
-			Q* result = TRANS_Z_Q(z);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeZ(z);
-			freeQ(result);
-		}
-	}
-		break;
-	case 27: {
-		StringToQConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		else {
-			Q* q = assignmentQ(temp1.GetQ());
-			Z* result = TRANS_Q_Z(q);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeQ(q);
-			freeZ(result);
-		}
-	}
-		break;
-	case 28: {
-		StringToQConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToQConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			Q *q1 = assignmentQ(temp1.GetQ()), *q2 = assignmentQ(temp2.GetQ());
-			Q* result = ADD_QQ_Q(q1, q2);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeQ(q1);
-			freeQ(q2);
-			freeQ(result);
-		}
-	}
-		break;
-	case 29: {
-		StringToQConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToQConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			Q *q1 = assignmentQ(temp1.GetQ()), *q2 = assignmentQ(temp2.GetQ());
-			Q* result = SUB_QQ_Q(q1, q2);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeQ(q1);
-			freeQ(q2);
-			freeQ(result);
-		}
-	}
-		break;
-	case 30: {
-		StringToQConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToQConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			Q *q1 = assignmentQ(temp1.GetQ()), *q2 = assignmentQ(temp2.GetQ());
-			Q* result = MUL_QQ_Q(q1, q2);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeQ(q1);
-			freeQ(q2);
-			freeQ(result);
-		}
-	}
-		break;
-	case 31: {
-		StringToQConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToQConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			Q *q1 = assignmentQ(temp1.GetQ()), *q2 = assignmentQ(temp2.GetQ());
-			Q* result = DIV_QQ_Q(q1, q2);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeQ(q1);
-			freeQ(q2);
-			freeQ(result);
-		}
-	}
-		break;
-	case 32: {
-		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToPConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			P *p1 = assignmentP(temp1.GetP()), *p2 = assignmentP(temp2.GetP());
-			P* result = ADD_PP_P(p1, p2);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeP(p1);
-			freeP(p2);
-			freeP(result);
-		}
-	}
-		break;
-	case 33: {
-		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToPConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			P *p1 = assignmentP(temp1.GetP()), *p2 = assignmentP(temp2.GetP());
-			P* result = SUB_PP_P(p1, p2);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeP(p1);
-			freeP(p2);
-			freeP(result);
-		}
-	}
-		break;
-	case 34: {
-		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToQConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			P* p = assignmentP(temp1.GetP());
-			Q* q = assignmentQ(temp2.GetQ());
-			P* result = MUL_PQ_P(p, q);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeP(p);
-			freeQ(q);
-			freeP(result);
-		}
-	}
-		break;
-	case 35: {
-		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToNConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			P* p = assignmentP(temp1.GetP());
-			int k = NToInt(temp2.GetN());
-			P* result = MUL_Pxk_P(p, k);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeP(p);
-			freeP(result);
-		}
-	}
-		break;
-	case 36: {
-		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		else {
-			P* p = assignmentP(temp1.GetP());
-			Q* result = LED_P_Q(p);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeP(p);
-			freeQ(result);
-		}
-	}
-		break;
-	case 37: {
-		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		else {
-			P* p = assignmentP(temp1.GetP());
-			N* result = DEG_P_N(p);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeP(p);
-			freeN(result);
-		}
-	}
-		break;
-	case 38: {
-		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		else {
-			P* p = assignmentP(temp1.GetP());
-			Q* result = FAC_P_Q(p);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeP(p);
-			freeQ(result);
-		}
-	}
-		break;
-	case 39: {
-		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToPConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			P *p1 = assignmentP(temp1.GetP()), *p2 = assignmentP(temp2.GetP());
-			P* result = MUL_PP_P(p1, p2);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeP(p1);
-			freeP(p2);
-			freeP(result);
-		}
-	}
-		break;
-	case 40: {
-		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToPConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			P *p1 = assignmentP(temp1.GetP()), *p2 = assignmentP(temp2.GetP());
-			P* result = DIV_PP_P(p1, p2);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeP(p1);
-			freeP(p2);
-			freeP(result);
-		}
-	}
-		break;
-	case 41: {
-		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToPConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			P *p1 = assignmentP(temp1.GetP()), *p2 = assignmentP(temp2.GetP());
-			P* result = MOD_PP_P(p1, p2);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeP(p1);
-			freeP(p2);
-			freeP(result);
-		}
-	}
-		break;
-	case 42: {
-		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		StringToPConverter temp2(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		if (!temp2.GetStatus())
-			this->textBox2->ForeColor = System::Drawing::Color::Red;
-		if (temp1.GetStatus() && temp2.GetStatus()) {
-			P *p1 = assignmentP(temp1.GetP()), *p2 = assignmentP(temp2.GetP());
-			P* result = GCF_PP_P(p1, p2);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeP(p1);
-			freeP(p2);
-			freeP(result);
-		}
-	}
-		break;
-	case 43: {
-		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		else {
-			P* p = assignmentP(temp1.GetP());
-			P* result = DER_P_P(p);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeP(p);
-			freeP(result);
-		}
-	}
-		break;
-	case 44: {
-		StringToPConverter temp1(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
-		if (!temp1.GetStatus())
-			this->textBox1->ForeColor = System::Drawing::Color::Red;
-		else {
-			P* p = assignmentP(temp1.GetP());
-			P* result = NMR_P_P(p);
-			this->textBox3->Text = msclr::interop::marshal_as<String^>(getString(result));
-			freeP(p);
-			freeP(result);
-		}
-	}
-		break;
-	default:
-		this->toolStripStatusLabel1->Text = "Ошибка: Модуль не выбран";
-		this->textBox3->Text = "Выберите модуль\r\n\r\nПодробные описания модулей находятся в справке (для вызова справки нажмите F1)";
-		break;
+	catch (...) {
+		this->toolStripStatusLabel1->Text = "Ошибка: неизвестная ошибка";
 	}
 }
 

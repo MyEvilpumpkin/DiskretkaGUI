@@ -97,20 +97,21 @@ namespace DiskretkaGUI {
 			this->textBox3->ReadOnly = true;
 			this->tableLayoutPanel1->SetRowSpan(this->textBox3, 4);
 			this->textBox3->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->textBox3->Size = System::Drawing::Size(271, 250);
+			this->textBox3->Size = System::Drawing::Size(271, 256);
 			this->textBox3->TabIndex = 4;
-			this->textBox3->Text = L"Выберите модуль\r\n\r\nПодробные описания модулей находятся в справке (для вызова справки нажмите F1)";
+			this->textBox3->Text = L"Выберите модуль\r\n\r\nПодробные описания модулей находятся в справке (для вызова спр"
+				L"авки нажмите F1)";
 			// 
 			// textBox2
 			// 
 			this->textBox2->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->textBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox2->Location = System::Drawing::Point(3, 163);
+			this->textBox2->Location = System::Drawing::Point(3, 166);
 			this->textBox2->Multiline = true;
 			this->textBox2->Name = L"textBox2";
 			this->textBox2->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->textBox2->Size = System::Drawing::Size(271, 90);
+			this->textBox2->Size = System::Drawing::Size(271, 93);
 			this->textBox2->TabIndex = 2;
 			this->textBox2->Visible = false;
 			this->textBox2->Click += gcnew System::EventHandler(this, &MainForm::TextBox2_Click);
@@ -125,7 +126,7 @@ namespace DiskretkaGUI {
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->textBox1->Size = System::Drawing::Size(271, 90);
+			this->textBox1->Size = System::Drawing::Size(271, 93);
 			this->textBox1->TabIndex = 1;
 			this->textBox1->Visible = false;
 			this->textBox1->Click += gcnew System::EventHandler(this, &MainForm::TextBox1_Click);
@@ -136,7 +137,7 @@ namespace DiskretkaGUI {
 			this->button1->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button1->Location = System::Drawing::Point(3, 259);
+			this->button1->Location = System::Drawing::Point(3, 265);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(271, 26);
 			this->button1->TabIndex = 3;
@@ -190,7 +191,7 @@ namespace DiskretkaGUI {
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 50)));
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 50)));
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 32)));
-			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 32)));
+			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 26)));
 			this->tableLayoutPanel1->Size = System::Drawing::Size(554, 321);
 			this->tableLayoutPanel1->TabIndex = 8;
 			// 
@@ -223,9 +224,9 @@ namespace DiskretkaGUI {
 			this->tableLayoutPanel1->SetColumnSpan(this->statusStrip1, 2);
 			this->statusStrip1->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->statusStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->toolStripStatusLabel1 });
-			this->statusStrip1->Location = System::Drawing::Point(0, 288);
+			this->statusStrip1->Location = System::Drawing::Point(0, 294);
 			this->statusStrip1->Name = L"statusStrip1";
-			this->statusStrip1->Size = System::Drawing::Size(554, 33);
+			this->statusStrip1->Size = System::Drawing::Size(554, 27);
 			this->statusStrip1->TabIndex = 10;
 			this->statusStrip1->Text = L"statusStrip1";
 			// 
@@ -237,7 +238,7 @@ namespace DiskretkaGUI {
 			this->toolStripStatusLabel1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Italic,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
 			this->toolStripStatusLabel1->Name = L"toolStripStatusLabel1";
-			this->toolStripStatusLabel1->Size = System::Drawing::Size(539, 28);
+			this->toolStripStatusLabel1->Size = System::Drawing::Size(508, 22);
 			this->toolStripStatusLabel1->Spring = true;
 			this->toolStripStatusLabel1->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
 			// 
@@ -284,6 +285,7 @@ private: System::Void ComboBox1_SelectedIndexChanged(System::Object^ sender, Sys
 	this->textBox2->ForeColor = System::Drawing::SystemColors::WindowText;
 	this->textBox3->Text = "";
 	this->toolStripStatusLabel1->Text = "";
+	this->toolStripStatusLabel1->BackColor = System::Drawing::SystemColors::Control;
 	switch (this->comboBox1->SelectedIndex) {
 	case 0:
 		SetFields(str1, str1);
@@ -427,6 +429,7 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 	try {
 		this->textBox3->Text = "";
 		this->toolStripStatusLabel1->Text = "Вычисление...";
+		this->toolStripStatusLabel1->BackColor = System::Drawing::SystemColors::Control;
 		switch (this->comboBox1->SelectedIndex) {
 			case 0:
 			{
@@ -1644,15 +1647,19 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 			break;
 		}
 		this->toolStripStatusLabel1->Text = "Готово";
+		this->toolStripStatusLabel1->BackColor = System::Drawing::Color::SkyBlue;
 	}
 	catch (Error ex) {
 		this->toolStripStatusLabel1->Text = msclr::interop::marshal_as<String^>(ex.what());
+		this->toolStripStatusLabel1->BackColor = System::Drawing::Color::LightCoral;
 	}
 	catch (std::bad_alloc) {
 		this->toolStripStatusLabel1->Text = "Ошибка: недостаточно памяти";
+		this->toolStripStatusLabel1->BackColor = System::Drawing::Color::LightCoral;
 	}
 	catch (...) {
 		this->toolStripStatusLabel1->Text = "Ошибка: неизвестная ошибка";
+		this->toolStripStatusLabel1->BackColor = System::Drawing::Color::LightCoral;
 	}
 }
 

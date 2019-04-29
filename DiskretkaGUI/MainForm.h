@@ -3,6 +3,7 @@
 #include "P.h"
 #include "Exceptions.h"
 #include "ModuleDescriptionForm.h"
+#include "AboutProgramForm.h"
 
 namespace DiskretkaGUI {
 
@@ -116,8 +117,8 @@ namespace DiskretkaGUI {
 			this->textBox3->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
 			this->textBox3->Size = System::Drawing::Size(271, 232);
 			this->textBox3->TabIndex = 4;
-			this->textBox3->Text = L"Âûáåðèòå ìîäóëü\r\n\r\nÏîäðîáíûå îïèñàíèÿ ìîäóëåé íàõîäÿòñÿ â ñïðàâêå (äëÿ âûçîâà ñïð"
-				L"àâêè íàæìèòå F1)";
+			this->textBox3->Text = L"Âûáåðèòå ìîäóëü\r\n\r\nÏîäðîáíûå îïèñàíèÿ ìîäóëåé íàõîäÿòñÿ â ñïðàâêå (òàêæå ìîæíî íà"
+				L"æàòü êíîïêó F1)";
 			// 
 			// textBox2
 			// 
@@ -323,6 +324,7 @@ namespace DiskretkaGUI {
 			this->îÏðîãðàììåToolStripMenuItem->Name = L"îÏðîãðàììåToolStripMenuItem";
 			this->îÏðîãðàììåToolStripMenuItem->Size = System::Drawing::Size(180, 22);
 			this->îÏðîãðàììåToolStripMenuItem->Text = L"Î ïðîãðàììå";
+			this->îÏðîãðàììåToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::ÎÏðîãðàììåToolStripMenuItem_Click);
 			// 
 			// MainForm
 			// 
@@ -1789,6 +1791,10 @@ private: System::Void MainForm_HelpRequested(System::Object^ sender, System::Win
 private: System::Void ÎïèñàíèåÌîäóëåéToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 	ModuleDescriptionForm^ moduleDescriptionForm = gcnew ModuleDescriptionForm();
 	moduleDescriptionForm->Show();
+}
+private: System::Void ÎÏðîãðàììåToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	AboutProgramForm^ aboutProgramForm = gcnew AboutProgramForm();
+	aboutProgramForm->Show();
 }
 };
 }

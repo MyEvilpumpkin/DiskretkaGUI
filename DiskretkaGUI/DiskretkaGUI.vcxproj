@@ -139,6 +139,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AboutProgramForm.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="ModuleDescriptionForm.cpp" />
     <ClCompile Include="N.cpp" />
@@ -151,6 +152,9 @@
     <ClCompile Include="ZRecognizer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AboutProgramForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Exceptions.h" />
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
@@ -172,6 +176,9 @@
     <ClInclude Include="ZRecognizer.h" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AboutProgramForm.resx">
+      <DependentUpon>AboutProgramForm.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.h</DependentUpon>
       <SubType>Designer</SubType>

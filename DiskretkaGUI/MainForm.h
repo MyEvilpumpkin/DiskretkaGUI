@@ -53,6 +53,14 @@ namespace DiskretkaGUI {
 	private: System::Windows::Forms::Label^ label1;
 	private: System::Windows::Forms::StatusStrip^ statusStrip1;
 	private: System::Windows::Forms::ToolStripStatusLabel^ toolStripStatusLabel1;
+	private: System::Windows::Forms::MenuStrip^ menuStrip1;
+	private: System::Windows::Forms::ToolStripMenuItem^ èñòîðèÿÂû÷èñëåíèéToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ ïîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ ïàðàìåòðûToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ ñïðàâêàToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ îïèñàíèåÌîäóëåéToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ îÏðîãðàììåToolStripMenuItem;
 
 
 
@@ -82,8 +90,17 @@ namespace DiskretkaGUI {
 			this->label1 = (gcnew System::Windows::Forms::Label());
 			this->statusStrip1 = (gcnew System::Windows::Forms::StatusStrip());
 			this->toolStripStatusLabel1 = (gcnew System::Windows::Forms::ToolStripStatusLabel());
+			this->menuStrip1 = (gcnew System::Windows::Forms::MenuStrip());
+			this->èñòîðèÿÂû÷èñëåíèéToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->ïîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->ïàðàìåòðûToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->ñïðàâêàToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->îïèñàíèåÌîäóëåéToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->îÏðîãðàììåToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->tableLayoutPanel1->SuspendLayout();
 			this->statusStrip1->SuspendLayout();
+			this->menuStrip1->SuspendLayout();
 			this->SuspendLayout();
 			// 
 			// textBox3
@@ -97,7 +114,7 @@ namespace DiskretkaGUI {
 			this->textBox3->ReadOnly = true;
 			this->tableLayoutPanel1->SetRowSpan(this->textBox3, 4);
 			this->textBox3->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->textBox3->Size = System::Drawing::Size(271, 256);
+			this->textBox3->Size = System::Drawing::Size(271, 232);
 			this->textBox3->TabIndex = 4;
 			this->textBox3->Text = L"Âûáåðèòå ìîäóëü\r\n\r\nÏîäðîáíûå îïèñàíèÿ ìîäóëåé íàõîäÿòñÿ â ñïðàâêå (äëÿ âûçîâà ñïð"
 				L"àâêè íàæìèòå F1)";
@@ -107,11 +124,11 @@ namespace DiskretkaGUI {
 			this->textBox2->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->textBox2->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->textBox2->Location = System::Drawing::Point(3, 166);
+			this->textBox2->Location = System::Drawing::Point(3, 154);
 			this->textBox2->Multiline = true;
 			this->textBox2->Name = L"textBox2";
 			this->textBox2->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->textBox2->Size = System::Drawing::Size(271, 93);
+			this->textBox2->Size = System::Drawing::Size(271, 81);
 			this->textBox2->TabIndex = 2;
 			this->textBox2->Visible = false;
 			this->textBox2->Click += gcnew System::EventHandler(this, &MainForm::TextBox2_Click);
@@ -126,7 +143,7 @@ namespace DiskretkaGUI {
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->textBox1->Size = System::Drawing::Size(271, 93);
+			this->textBox1->Size = System::Drawing::Size(271, 81);
 			this->textBox1->TabIndex = 1;
 			this->textBox1->Visible = false;
 			this->textBox1->Click += gcnew System::EventHandler(this, &MainForm::TextBox1_Click);
@@ -137,7 +154,7 @@ namespace DiskretkaGUI {
 			this->button1->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->button1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->button1->Location = System::Drawing::Point(3, 265);
+			this->button1->Location = System::Drawing::Point(3, 241);
 			this->button1->Name = L"button1";
 			this->button1->Size = System::Drawing::Size(271, 26);
 			this->button1->TabIndex = 3;
@@ -183,7 +200,7 @@ namespace DiskretkaGUI {
 			this->tableLayoutPanel1->Controls->Add(this->label1, 0, 0);
 			this->tableLayoutPanel1->Controls->Add(this->statusStrip1, 0, 5);
 			this->tableLayoutPanel1->Dock = System::Windows::Forms::DockStyle::Fill;
-			this->tableLayoutPanel1->Location = System::Drawing::Point(0, 0);
+			this->tableLayoutPanel1->Location = System::Drawing::Point(0, 24);
 			this->tableLayoutPanel1->Name = L"tableLayoutPanel1";
 			this->tableLayoutPanel1->RowCount = 6;
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 32)));
@@ -192,7 +209,7 @@ namespace DiskretkaGUI {
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Percent, 50)));
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 32)));
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 26)));
-			this->tableLayoutPanel1->Size = System::Drawing::Size(554, 321);
+			this->tableLayoutPanel1->Size = System::Drawing::Size(554, 297);
 			this->tableLayoutPanel1->TabIndex = 8;
 			// 
 			// label2
@@ -224,7 +241,7 @@ namespace DiskretkaGUI {
 			this->tableLayoutPanel1->SetColumnSpan(this->statusStrip1, 2);
 			this->statusStrip1->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->statusStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(1) { this->toolStripStatusLabel1 });
-			this->statusStrip1->Location = System::Drawing::Point(0, 294);
+			this->statusStrip1->Location = System::Drawing::Point(0, 270);
 			this->statusStrip1->Name = L"statusStrip1";
 			this->statusStrip1->Size = System::Drawing::Size(554, 27);
 			this->statusStrip1->TabIndex = 10;
@@ -238,9 +255,74 @@ namespace DiskretkaGUI {
 			this->toolStripStatusLabel1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9.75F, System::Drawing::FontStyle::Italic,
 				System::Drawing::GraphicsUnit::Point, static_cast<System::Byte>(204)));
 			this->toolStripStatusLabel1->Name = L"toolStripStatusLabel1";
-			this->toolStripStatusLabel1->Size = System::Drawing::Size(508, 22);
+			this->toolStripStatusLabel1->Size = System::Drawing::Size(539, 22);
 			this->toolStripStatusLabel1->Spring = true;
 			this->toolStripStatusLabel1->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;
+			// 
+			// menuStrip1
+			// 
+			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
+				this->èñòîðèÿÂû÷èñëåíèéToolStripMenuItem,
+					this->ïàðàìåòðûToolStripMenuItem, this->ñïðàâêàToolStripMenuItem
+			});
+			this->menuStrip1->Location = System::Drawing::Point(0, 0);
+			this->menuStrip1->Name = L"menuStrip1";
+			this->menuStrip1->Padding = System::Windows::Forms::Padding(0, 2, 0, 2);
+			this->menuStrip1->Size = System::Drawing::Size(554, 24);
+			this->menuStrip1->TabIndex = 9;
+			this->menuStrip1->Text = L"menuStrip1";
+			// 
+			// èñòîðèÿÂû÷èñëåíèéToolStripMenuItem
+			// 
+			this->èñòîðèÿÂû÷èñëåíèéToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->ïîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem,
+					this->ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem
+			});
+			this->èñòîðèÿÂû÷èñëåíèéToolStripMenuItem->Enabled = false;
+			this->èñòîðèÿÂû÷èñëåíèéToolStripMenuItem->Name = L"èñòîðèÿÂû÷èñëåíèéToolStripMenuItem";
+			this->èñòîðèÿÂû÷èñëåíèéToolStripMenuItem->Size = System::Drawing::Size(138, 20);
+			this->èñòîðèÿÂû÷èñëåíèéToolStripMenuItem->Text = L"Èñòîðèÿ âû÷èñëåíèé";
+			// 
+			// ïîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem
+			// 
+			this->ïîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem->Name = L"ïîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem";
+			this->ïîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem->Size = System::Drawing::Size(297, 22);
+			this->ïîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem->Text = L"Ïîêàçàòü èñòîðèþ âû÷èñëåíèé";
+			// 
+			// ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem
+			// 
+			this->ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem->Name = L"ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem";
+			this->ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem->Size = System::Drawing::Size(297, 22);
+			this->ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem->Text = L"Ñîõðàíèòü èñòîðèþ âû÷èñëåíèé â ôàéë";
+			// 
+			// ïàðàìåòðûToolStripMenuItem
+			// 
+			this->ïàðàìåòðûToolStripMenuItem->Name = L"ïàðàìåòðûToolStripMenuItem";
+			this->ïàðàìåòðûToolStripMenuItem->Size = System::Drawing::Size(83, 20);
+			this->ïàðàìåòðûToolStripMenuItem->Text = L"Ïàðàìåòðû";
+			// 
+			// ñïðàâêàToolStripMenuItem
+			// 
+			this->ñïðàâêàToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+				this->îïèñàíèåÌîäóëåéToolStripMenuItem,
+					this->îÏðîãðàììåToolStripMenuItem
+			});
+			this->ñïðàâêàToolStripMenuItem->Name = L"ñïðàâêàToolStripMenuItem";
+			this->ñïðàâêàToolStripMenuItem->Size = System::Drawing::Size(65, 20);
+			this->ñïðàâêàToolStripMenuItem->Text = L"Ñïðàâêà";
+			// 
+			// îïèñàíèåÌîäóëåéToolStripMenuItem
+			// 
+			this->îïèñàíèåÌîäóëåéToolStripMenuItem->Name = L"îïèñàíèåÌîäóëåéToolStripMenuItem";
+			this->îïèñàíèåÌîäóëåéToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->îïèñàíèåÌîäóëåéToolStripMenuItem->Text = L"Îïèñàíèå ìîäóëåé";
+			this->îïèñàíèåÌîäóëåéToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::ÎïèñàíèåÌîäóëåéToolStripMenuItem_Click);
+			// 
+			// îÏðîãðàììåToolStripMenuItem
+			// 
+			this->îÏðîãðàììåToolStripMenuItem->Name = L"îÏðîãðàììåToolStripMenuItem";
+			this->îÏðîãðàììåToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->îÏðîãðàììåToolStripMenuItem->Text = L"Î ïðîãðàììå";
 			// 
 			// MainForm
 			// 
@@ -248,8 +330,10 @@ namespace DiskretkaGUI {
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
 			this->ClientSize = System::Drawing::Size(554, 321);
 			this->Controls->Add(this->tableLayoutPanel1);
+			this->Controls->Add(this->menuStrip1);
 			this->HelpButton = true;
 			this->Icon = (cli::safe_cast<System::Drawing::Icon^>(resources->GetObject(L"$this.Icon")));
+			this->MainMenuStrip = this->menuStrip1;
 			this->MinimumSize = System::Drawing::Size(570, 360);
 			this->Name = L"MainForm";
 			this->Text = L"Ñèñòåìà êîìïüþòåðíîé àëãåáðû";
@@ -259,7 +343,10 @@ namespace DiskretkaGUI {
 			this->tableLayoutPanel1->PerformLayout();
 			this->statusStrip1->ResumeLayout(false);
 			this->statusStrip1->PerformLayout();
+			this->menuStrip1->ResumeLayout(false);
+			this->menuStrip1->PerformLayout();
 			this->ResumeLayout(false);
+			this->PerformLayout();
 
 		}
 #pragma endregion
@@ -1696,6 +1783,10 @@ private: System::Void MyForm_HelpButtonClicked(System::Object^ sender, System::C
 	moduleDescriptionForm->Show();
 }
 private: System::Void MainForm_HelpRequested(System::Object^ sender, System::Windows::Forms::HelpEventArgs^ hlpevent) {
+	ModuleDescriptionForm^ moduleDescriptionForm = gcnew ModuleDescriptionForm();
+	moduleDescriptionForm->Show();
+}
+private: System::Void ÎïèñàíèåÌîäóëåéToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
 	ModuleDescriptionForm^ moduleDescriptionForm = gcnew ModuleDescriptionForm();
 	moduleDescriptionForm->Show();
 }

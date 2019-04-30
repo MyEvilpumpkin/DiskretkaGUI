@@ -66,13 +66,13 @@ namespace DiskretkaGUI {
 			this->textBox1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 10.8F, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
 			this->textBox1->ImeMode = System::Windows::Forms::ImeMode::NoControl;
-			this->textBox1->Location = System::Drawing::Point(2, 34);
+			this->textBox1->Location = System::Drawing::Point(3, 36);
 			this->textBox1->Margin = System::Windows::Forms::Padding(2);
 			this->textBox1->Multiline = true;
 			this->textBox1->Name = L"textBox1";
 			this->textBox1->ReadOnly = true;
 			this->textBox1->ScrollBars = System::Windows::Forms::ScrollBars::Vertical;
-			this->textBox1->Size = System::Drawing::Size(550, 285);
+			this->textBox1->Size = System::Drawing::Size(548, 282);
 			this->textBox1->TabIndex = 0;
 			this->textBox1->TabStop = false;
 			this->textBox1->Text = resources->GetString(L"textBox1.Text");
@@ -80,6 +80,7 @@ namespace DiskretkaGUI {
 			// 
 			// tableLayoutPanel1
 			// 
+			this->tableLayoutPanel1->CellBorderStyle = System::Windows::Forms::TableLayoutPanelCellBorderStyle::Single;
 			this->tableLayoutPanel1->ColumnCount = 1;
 			this->tableLayoutPanel1->ColumnStyles->Add((gcnew System::Windows::Forms::ColumnStyle(System::Windows::Forms::SizeType::Percent,
 				100)));
@@ -89,6 +90,7 @@ namespace DiskretkaGUI {
 			this->tableLayoutPanel1->Controls->Add(this->label1, 0, 0);
 			this->tableLayoutPanel1->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->tableLayoutPanel1->Location = System::Drawing::Point(0, 0);
+			this->tableLayoutPanel1->Margin = System::Windows::Forms::Padding(0);
 			this->tableLayoutPanel1->Name = L"tableLayoutPanel1";
 			this->tableLayoutPanel1->RowCount = 2;
 			this->tableLayoutPanel1->RowStyles->Add((gcnew System::Windows::Forms::RowStyle(System::Windows::Forms::SizeType::Absolute, 32)));
@@ -101,9 +103,9 @@ namespace DiskretkaGUI {
 			this->label1->Dock = System::Windows::Forms::DockStyle::Fill;
 			this->label1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 11.25F, System::Drawing::FontStyle::Bold, System::Drawing::GraphicsUnit::Point,
 				static_cast<System::Byte>(204)));
-			this->label1->Location = System::Drawing::Point(3, 0);
+			this->label1->Location = System::Drawing::Point(4, 1);
 			this->label1->Name = L"label1";
-			this->label1->Size = System::Drawing::Size(548, 32);
+			this->label1->Size = System::Drawing::Size(546, 32);
 			this->label1->TabIndex = 1;
 			this->label1->Text = L"Описание модулей";
 			this->label1->TextAlign = System::Drawing::ContentAlignment::MiddleLeft;

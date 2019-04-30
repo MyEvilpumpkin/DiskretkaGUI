@@ -4,6 +4,7 @@
 #include "Exceptions.h"
 #include "ModuleDescriptionForm.h"
 #include "AboutProgramForm.h"
+#include "SettingsForm.h"
 
 namespace DiskretkaGUI {
 
@@ -20,6 +21,8 @@ namespace DiskretkaGUI {
 	bool SAVE_ERRORS;
 	int INPUT_FIELDS_FONT_SIZE;
 	int OUTPUT_FIELD_FONT_SIZE;
+	bool IS_CHANGED;
+	bool IS_SAVED;
 
 	/// <summary>
 	/// Сводка для MainForm
@@ -310,6 +313,7 @@ namespace DiskretkaGUI {
 			this->параметрыToolStripMenuItem->Name = L"параметрыToolStripMenuItem";
 			this->параметрыToolStripMenuItem->Size = System::Drawing::Size(82, 20);
 			this->параметрыToolStripMenuItem->Text = L"Настройки";
+			this->параметрыToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::ПараметрыToolStripMenuItem_Click);
 			// 
 			// справкаToolStripMenuItem
 			// 
@@ -349,6 +353,7 @@ namespace DiskretkaGUI {
 			this->Name = L"MainForm";
 			this->Text = L"Система компьютерной алгебры";
 			this->HelpButtonClicked += gcnew System::ComponentModel::CancelEventHandler(this, &MainForm::MyForm_HelpButtonClicked);
+			this->Activated += gcnew System::EventHandler(this, &MainForm::MainForm_Activated);
 			this->Load += gcnew System::EventHandler(this, &MainForm::MainForm_Load);
 			this->HelpRequested += gcnew System::Windows::Forms::HelpEventHandler(this, &MainForm::MainForm_HelpRequested);
 			this->tableLayoutPanel1->ResumeLayout(false);
@@ -1741,7 +1746,7 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 			}
 			break;
 			default:
-				this->textBox3->Text = "Выберите модуль\r\n\r\nПодробные описания модулей находятся в справке (для вызова справки нажмите F1)";
+				this->textBox3->Text = "Выберите модуль\r\n\r\nПодробные описания модулей находятся в справке (также можно нажать кнопку F1)";
 				throw Error("Ошибка: Модуль не выбран");
 			break;
 		}
@@ -1809,7 +1814,7 @@ private: System::Void ОПрограммеToolStripMenuItem_Click(System::Object^ sender, 
 
 private: void CreateConfigFile() {
 	StreamWriter^ sw = gcnew StreamWriter(Path::GetFileName(System::Reflection::Assembly::GetEntryAssembly()->Location) + ".config");
-	sw->Write("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n<configuration>\r\n  <appSettings>\r\n    <add key=\"saveHistory\" value=\"false\" />\r\n    <add key=\"saveErrors\" value=\"true\" />\r\n    <add key=\"inputFieldsFontSize\" value=\"11\" />\r\n    <add key=\"outputFieldFontSize\" value=\"11\" />\r\n  </appSettings>\r\n</configuration>\r\n");
+	sw->Write("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n<configuration>\r\n  <appSettings>\r\n    <add key=\"saveHistory\" value=\"False\" />\r\n    <add key=\"saveErrors\" value=\"True\" />\r\n    <add key=\"inputFieldsFontSize\" value=\"11\" />\r\n    <add key=\"outputFieldFontSize\" value=\"11\" />\r\n  </appSettings>\r\n</configuration>\r\n");
 	sw->Close();
 }
 
@@ -1818,6 +1823,7 @@ private: void SetDefaultSettings() {
 	SAVE_ERRORS = true;
 	INPUT_FIELDS_FONT_SIZE = 11;
 	OUTPUT_FIELD_FONT_SIZE = 11;
+	IS_CHANGED = true;
 }
 
 private: void ApplySettings() {
@@ -1825,54 +1831,54 @@ private: void ApplySettings() {
 	this->textBox2->Font = gcnew System::Drawing::Font(textBox2->Font->FontFamily, (float)INPUT_FIELDS_FONT_SIZE);
 	this->textBox3->Font = gcnew System::Drawing::Font(textBox3->Font->FontFamily, (float)OUTPUT_FIELD_FONT_SIZE);
 	this->историяВычисленийToolStripMenuItem->Enabled = SAVE_HISTORY;
+	IS_CHANGED = false;
 }
 
 private: System::Void MainForm_Load(System::Object^ sender, System::EventArgs^ e) {
 	if (File::Exists(Directory::GetCurrentDirectory() + "\\" + Path::GetFileName(System::Reflection::Assembly::GetEntryAssembly()->Location) + ".config") || File::Exists(Directory::GetCurrentDirectory() + "\\app.config")) {
 		try {
+			String^ str = System::Configuration::ConfigurationManager::AppSettings["saveHistory"];
+			if (str == "True" || str == "False")
+				SAVE_HISTORY = str == "True";
+			else
+				throw std::exception();
+			str = System::Configuration::ConfigurationManager::AppSettings["saveErrors"];
+			if (str == "True" || str == "False")
+				SAVE_ERRORS = str == "True";
+			else
+				throw std::exception();
+			str = System::Configuration::ConfigurationManager::AppSettings["inputFieldsFontSize"];
+			if (str == "10" || str == "11" || str == "12" || str == "14" || str == "16" || str == "18" || str == "20" || str == "22")
+				INPUT_FIELDS_FONT_SIZE = int::Parse(str);
+			else
+				throw std::exception();
+			str = System::Configuration::ConfigurationManager::AppSettings["outputFieldFontSize"];
+			if (str == "10" || str == "11" || str == "12" || str == "14" || str == "16" || str == "18" || str == "20" || str == "22")
+				OUTPUT_FIELD_FONT_SIZE = int::Parse(str);
+			else
+				throw std::exception();
+			IS_CHANGED = true;
+		}
+		catch (...) { 
 			try {
-				String^ str = System::Configuration::ConfigurationManager::AppSettings["saveHistory"];
-				if (str == "true" || str == "false")
-					SAVE_HISTORY = str == "true";
-				else
-					throw Error("Ошибка: файл конфигурации повреждён. Файл конфигурации пересоздан");
-				str = System::Configuration::ConfigurationManager::AppSettings["saveErrors"];
-				if (str == "true" || str == "false")
-					SAVE_ERRORS = str == "true";
-				else
-					throw Error("Ошибка: файл конфигурации повреждён. Файл конфигурации пересоздан");
-				str = System::Configuration::ConfigurationManager::AppSettings["inputFieldsFontSize"];
-				if (str == "10" || str == "11" || str == "12" || str == "14" || str == "16" || str == "18" || str == "20" || str == "22")
-					INPUT_FIELDS_FONT_SIZE = int::Parse(str);
-				else
-					throw Error("Ошибка: файл конфигурации повреждён. Файл конфигурации пересоздан");
-				str = System::Configuration::ConfigurationManager::AppSettings["outputFieldFontSize"];
-				if (str == "10" || str == "11" || str == "12" || str == "14" || str == "16" || str == "18" || str == "20" || str == "22")
-					OUTPUT_FIELD_FONT_SIZE = int::Parse(str);
-				else
-					throw Error("Ошибка: файл конфигурации повреждён. Файл конфигурации пересоздан");
-			}
-			catch (Error ex) {
 				CreateConfigFile();
-				this->toolStripStatusLabel1->Text = msclr::interop::marshal_as<String^>(ex.what());
+				this->toolStripStatusLabel1->Text = "Предупреждение: файл конфигурации повреждён (файл пересоздан)";
+				this->toolStripStatusLabel1->BackColor = System::Drawing::Color::Khaki;
+				SetDefaultSettings();
+			}
+			catch (...) {
+				this->toolStripStatusLabel1->Text = "Ошибка: неизвестная ошибка (место: пересоздание файла конфигурации)";
 				this->toolStripStatusLabel1->BackColor = System::Drawing::Color::LightCoral;
 				SetDefaultSettings();
 			}
 		}
-		catch (...) { 
-			this->toolStripStatusLabel1->Text = "Ошибка: неизвестная ошибка (место: пересоздание файла конфигурации)";
-			this->toolStripStatusLabel1->BackColor = System::Drawing::Color::LightCoral;
-			SetDefaultSettings();
-		}
-			
 	}
 	else {
 		try {
 			CreateConfigFile();
-			this->toolStripStatusLabel1->Text = "Ошибка: файл конфигурации не найден. Создан новый файл конфигурации";
-			this->toolStripStatusLabel1->BackColor = System::Drawing::Color::LightCoral;
+			this->toolStripStatusLabel1->Text = "Предупреждение: файл конфигурации не найден (cоздан новый файл)";
+			this->toolStripStatusLabel1->BackColor = System::Drawing::Color::Khaki;
 			SetDefaultSettings();
-
 		}
 		catch (...) {
 			this->toolStripStatusLabel1->Text = "Ошибка: неизвестная ошибка (место: создание файла конфигурации)";
@@ -1881,6 +1887,16 @@ private: System::Void MainForm_Load(System::Object^ sender, System::EventArgs^ e
 		}
 	}
 	ApplySettings();
+}
+
+private: System::Void ПараметрыToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	SettingsForm^ settingsForm = gcnew SettingsForm();
+	settingsForm->Owner = this;
+	settingsForm->Show();
+}
+private: System::Void MainForm_Activated(System::Object^ sender, System::EventArgs^ e) {
+	if (IS_CHANGED)
+		ApplySettings();
 }
 };
 }

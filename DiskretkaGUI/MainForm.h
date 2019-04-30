@@ -13,6 +13,13 @@ namespace DiskretkaGUI {
 	using namespace System::Windows::Forms;
 	using namespace System::Data;
 	using namespace System::Drawing;
+	using namespace System::Configuration;
+	using namespace System::IO;
+
+	bool SAVE_HISTORY;
+	bool SAVE_ERRORS;
+	int INPUT_FIELDS_FONT_SIZE;
+	int OUTPUT_FIELD_FONT_SIZE;
 
 	/// <summary>
 	/// Ñâîäêà äëÿ MainForm
@@ -262,6 +269,8 @@ namespace DiskretkaGUI {
 			// 
 			// menuStrip1
 			// 
+			this->menuStrip1->Font = (gcnew System::Drawing::Font(L"Microsoft Sans Serif", 9, System::Drawing::FontStyle::Regular, System::Drawing::GraphicsUnit::Point,
+				static_cast<System::Byte>(204)));
 			this->menuStrip1->Items->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				this->èñòîðèÿÂû÷èñëåíèéToolStripMenuItem,
 					this->ïàðàìåòðûToolStripMenuItem, this->ñïðàâêàToolStripMenuItem
@@ -281,26 +290,26 @@ namespace DiskretkaGUI {
 			});
 			this->èñòîðèÿÂû÷èñëåíèéToolStripMenuItem->Enabled = false;
 			this->èñòîðèÿÂû÷èñëåíèéToolStripMenuItem->Name = L"èñòîðèÿÂû÷èñëåíèéToolStripMenuItem";
-			this->èñòîðèÿÂû÷èñëåíèéToolStripMenuItem->Size = System::Drawing::Size(138, 20);
+			this->èñòîðèÿÂû÷èñëåíèéToolStripMenuItem->Size = System::Drawing::Size(142, 20);
 			this->èñòîðèÿÂû÷èñëåíèéToolStripMenuItem->Text = L"Èñòîðèÿ âû÷èñëåíèé";
 			// 
 			// ïîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem
 			// 
 			this->ïîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem->Name = L"ïîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem";
-			this->ïîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem->Size = System::Drawing::Size(297, 22);
+			this->ïîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem->Size = System::Drawing::Size(308, 22);
 			this->ïîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem->Text = L"Ïîêàçàòü èñòîðèþ âû÷èñëåíèé";
 			// 
 			// ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem
 			// 
 			this->ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem->Name = L"ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem";
-			this->ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem->Size = System::Drawing::Size(297, 22);
+			this->ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem->Size = System::Drawing::Size(308, 22);
 			this->ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem->Text = L"Ñîõðàíèòü èñòîðèþ âû÷èñëåíèé â ôàéë";
 			// 
 			// ïàðàìåòðûToolStripMenuItem
 			// 
 			this->ïàðàìåòðûToolStripMenuItem->Name = L"ïàðàìåòðûToolStripMenuItem";
-			this->ïàðàìåòðûToolStripMenuItem->Size = System::Drawing::Size(83, 20);
-			this->ïàðàìåòðûToolStripMenuItem->Text = L"Ïàðàìåòðû";
+			this->ïàðàìåòðûToolStripMenuItem->Size = System::Drawing::Size(82, 20);
+			this->ïàðàìåòðûToolStripMenuItem->Text = L"Íàñòðîéêè";
 			// 
 			// ñïðàâêàToolStripMenuItem
 			// 
@@ -309,20 +318,20 @@ namespace DiskretkaGUI {
 					this->îÏðîãðàììåToolStripMenuItem
 			});
 			this->ñïðàâêàToolStripMenuItem->Name = L"ñïðàâêàToolStripMenuItem";
-			this->ñïðàâêàToolStripMenuItem->Size = System::Drawing::Size(65, 20);
+			this->ñïðàâêàToolStripMenuItem->Size = System::Drawing::Size(68, 20);
 			this->ñïðàâêàToolStripMenuItem->Text = L"Ñïðàâêà";
 			// 
 			// îïèñàíèåÌîäóëåéToolStripMenuItem
 			// 
 			this->îïèñàíèåÌîäóëåéToolStripMenuItem->Name = L"îïèñàíèåÌîäóëåéToolStripMenuItem";
-			this->îïèñàíèåÌîäóëåéToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->îïèñàíèåÌîäóëåéToolStripMenuItem->Size = System::Drawing::Size(183, 22);
 			this->îïèñàíèåÌîäóëåéToolStripMenuItem->Text = L"Îïèñàíèå ìîäóëåé";
 			this->îïèñàíèåÌîäóëåéToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::ÎïèñàíèåÌîäóëåéToolStripMenuItem_Click);
 			// 
 			// îÏðîãðàììåToolStripMenuItem
 			// 
 			this->îÏðîãðàììåToolStripMenuItem->Name = L"îÏðîãðàììåToolStripMenuItem";
-			this->îÏðîãðàììåToolStripMenuItem->Size = System::Drawing::Size(180, 22);
+			this->îÏðîãðàììåToolStripMenuItem->Size = System::Drawing::Size(183, 22);
 			this->îÏðîãðàììåToolStripMenuItem->Text = L"Î ïðîãðàììå";
 			this->îÏðîãðàììåToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::ÎÏðîãðàììåToolStripMenuItem_Click);
 			// 
@@ -340,6 +349,7 @@ namespace DiskretkaGUI {
 			this->Name = L"MainForm";
 			this->Text = L"Ñèñòåìà êîìïüþòåðíîé àëãåáðû";
 			this->HelpButtonClicked += gcnew System::ComponentModel::CancelEventHandler(this, &MainForm::MyForm_HelpButtonClicked);
+			this->Load += gcnew System::EventHandler(this, &MainForm::MainForm_Load);
 			this->HelpRequested += gcnew System::Windows::Forms::HelpEventHandler(this, &MainForm::MainForm_HelpRequested);
 			this->tableLayoutPanel1->ResumeLayout(false);
 			this->tableLayoutPanel1->PerformLayout();
@@ -1747,7 +1757,7 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 		this->toolStripStatusLabel1->BackColor = System::Drawing::Color::LightCoral;
 	}
 	catch (...) {
-		this->toolStripStatusLabel1->Text = "Îøèáêà: íåèçâåñòíàÿ îøèáêà";
+		this->toolStripStatusLabel1->Text = "Îøèáêà: íåèçâåñòíàÿ îøèáêà (ìåñòî: âû÷èñëåíèå)";
 		this->toolStripStatusLabel1->BackColor = System::Drawing::Color::LightCoral;
 	}
 }
@@ -1796,5 +1806,82 @@ private: System::Void ÎÏðîãðàììåToolStripMenuItem_Click(System::Object^ sender, 
 	AboutProgramForm^ aboutProgramForm = gcnew AboutProgramForm();
 	aboutProgramForm->Show();
 }
+
+private: void CreateConfigFile() {
+	StreamWriter^ sw = gcnew StreamWriter(Path::GetFileName(System::Reflection::Assembly::GetEntryAssembly()->Location) + ".config");
+	sw->Write("<?xml version=\"1.0\" encoding=\"utf-8\" ?>\r\n<configuration>\r\n  <appSettings>\r\n    <add key=\"saveHistory\" value=\"false\" />\r\n    <add key=\"saveErrors\" value=\"true\" />\r\n    <add key=\"inputFieldsFontSize\" value=\"11\" />\r\n    <add key=\"outputFieldFontSize\" value=\"11\" />\r\n  </appSettings>\r\n</configuration>\r\n");
+	sw->Close();
+}
+
+private: void SetDefaultSettings() {
+	SAVE_HISTORY = false;
+	SAVE_ERRORS = true;
+	INPUT_FIELDS_FONT_SIZE = 11;
+	OUTPUT_FIELD_FONT_SIZE = 11;
+}
+
+private: void ApplySettings() {
+	this->textBox1->Font = gcnew System::Drawing::Font(textBox1->Font->FontFamily, (float)INPUT_FIELDS_FONT_SIZE);
+	this->textBox2->Font = gcnew System::Drawing::Font(textBox2->Font->FontFamily, (float)INPUT_FIELDS_FONT_SIZE);
+	this->textBox3->Font = gcnew System::Drawing::Font(textBox3->Font->FontFamily, (float)OUTPUT_FIELD_FONT_SIZE);
+	this->èñòîðèÿÂû÷èñëåíèéToolStripMenuItem->Enabled = SAVE_HISTORY;
+}
+
+private: System::Void MainForm_Load(System::Object^ sender, System::EventArgs^ e) {
+	if (File::Exists(Directory::GetCurrentDirectory() + "\\" + Path::GetFileName(System::Reflection::Assembly::GetEntryAssembly()->Location) + ".config") || File::Exists(Directory::GetCurrentDirectory() + "\\app.config")) {
+		try {
+			try {
+				String^ str = System::Configuration::ConfigurationManager::AppSettings["saveHistory"];
+				if (str == "true" || str == "false")
+					SAVE_HISTORY = str == "true";
+				else
+					throw Error("Îøèáêà: ôàéë êîíôèãóðàöèè ïîâðåæä¸í. Ôàéë êîíôèãóðàöèè ïåðåñîçäàí");
+				str = System::Configuration::ConfigurationManager::AppSettings["saveErrors"];
+				if (str == "true" || str == "false")
+					SAVE_ERRORS = str == "true";
+				else
+					throw Error("Îøèáêà: ôàéë êîíôèãóðàöèè ïîâðåæä¸í. Ôàéë êîíôèãóðàöèè ïåðåñîçäàí");
+				str = System::Configuration::ConfigurationManager::AppSettings["inputFieldsFontSize"];
+				if (str == "10" || str == "11" || str == "12" || str == "14" || str == "16" || str == "18" || str == "20" || str == "22")
+					INPUT_FIELDS_FONT_SIZE = int::Parse(str);
+				else
+					throw Error("Îøèáêà: ôàéë êîíôèãóðàöèè ïîâðåæä¸í. Ôàéë êîíôèãóðàöèè ïåðåñîçäàí");
+				str = System::Configuration::ConfigurationManager::AppSettings["outputFieldFontSize"];
+				if (str == "10" || str == "11" || str == "12" || str == "14" || str == "16" || str == "18" || str == "20" || str == "22")
+					OUTPUT_FIELD_FONT_SIZE = int::Parse(str);
+				else
+					throw Error("Îøèáêà: ôàéë êîíôèãóðàöèè ïîâðåæä¸í. Ôàéë êîíôèãóðàöèè ïåðåñîçäàí");
+			}
+			catch (Error ex) {
+				CreateConfigFile();
+				this->toolStripStatusLabel1->Text = msclr::interop::marshal_as<String^>(ex.what());
+				this->toolStripStatusLabel1->BackColor = System::Drawing::Color::LightCoral;
+				SetDefaultSettings();
+			}
+		}
+		catch (...) { 
+			this->toolStripStatusLabel1->Text = "Îøèáêà: íåèçâåñòíàÿ îøèáêà (ìåñòî: ïåðåñîçäàíèå ôàéëà êîíôèãóðàöèè)";
+			this->toolStripStatusLabel1->BackColor = System::Drawing::Color::LightCoral;
+			SetDefaultSettings();
+		}
+			
+	}
+	else {
+		try {
+			CreateConfigFile();
+			this->toolStripStatusLabel1->Text = "Îøèáêà: ôàéë êîíôèãóðàöèè íå íàéäåí. Ñîçäàí íîâûé ôàéë êîíôèãóðàöèè";
+			this->toolStripStatusLabel1->BackColor = System::Drawing::Color::LightCoral;
+			SetDefaultSettings();
+
+		}
+		catch (...) {
+			this->toolStripStatusLabel1->Text = "Îøèáêà: íåèçâåñòíàÿ îøèáêà (ìåñòî: ñîçäàíèå ôàéëà êîíôèãóðàöèè)";
+			this->toolStripStatusLabel1->BackColor = System::Drawing::Color::LightCoral;
+			SetDefaultSettings();
+		}
+	}
+	ApplySettings();
+}
 };
 }
+

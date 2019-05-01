@@ -314,6 +314,7 @@ namespace DiskretkaGUI {
 			this->ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem->Name = L"ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem";
 			this->ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem->Size = System::Drawing::Size(308, 22);
 			this->ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem->Text = L"Ñîõðàíèòü èñòîðèþ âû÷èñëåíèé â ôàéë";
+			this->ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::ÑîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem_Click);
 			// 
 			// î÷èñòèòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem
 			// 
@@ -2181,6 +2182,36 @@ private: System::Void ÏîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem_Click(System::O
 	}
 	else {
 		this->toolStripStatusLabel1->Text = "Ïðåäóïðåæäåíèå: èñòîðèÿ âû÷èñëåíèé ïóñòà";
+		this->toolStripStatusLabel1->BackColor = System::Drawing::Color::Khaki;
+	}
+}
+
+private: System::Void ÑîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (HISTORY.size()) {
+		SaveFileDialog^ sfd = gcnew SaveFileDialog();
+		sfd->InitialDirectory = Directory::GetCurrentDirectory();
+		sfd->RestoreDirectory = true;
+		sfd->FileName = "Èñòîðèÿ âû÷èñëåíèé.txt";
+		sfd->DefaultExt = "txt";
+		sfd->Filter = "Òåêñòîâûå äîêóìåíòû (*.txt)|*.txt";
+		if (sfd->ShowDialog() == System::Windows::Forms::DialogResult::OK) {
+			try {
+				Stream^ stream = sfd->OpenFile();
+				StreamWriter^ sw = gcnew StreamWriter(stream);
+				for (size_t i = 0; i < HISTORY.size(); i++)
+					sw->Write(msclr::interop::marshal_as<String^>(HISTORY[i].module) + " | " + msclr::interop::marshal_as<String^>(HISTORY[i].firstOperand) + " | " + msclr::interop::marshal_as<String^>(HISTORY[i].secondOperand) + " | " + msclr::interop::marshal_as<String^>(HISTORY[i].result) + "\r\n");
+				sw->Close();
+				this->toolStripStatusLabel1->Text = "Èñòîðèÿ âû÷èñëåíèé óñïåøíî çàïèñàíà â ôàéë";
+				this->toolStripStatusLabel1->BackColor = System::Drawing::Color::SkyBlue;
+			}
+			catch (...) {
+				this->toolStripStatusLabel1->Text = "Îøèáêà: íåèçâåñòíàÿ îøèáêà (ìåñòî: ñîõðàíåíèå èñòîðèè âû÷èñëåíèé â ôàéë)";
+				this->toolStripStatusLabel1->BackColor = System::Drawing::Color::LightCoral;
+			}
+		}
+	}
+	else {
+		this->toolStripStatusLabel1->Text = "Ïðåäóïðåæäåíèå: ñîõðàíåíèå íå âûïîëíåíî (èñòîðèÿ âû÷èñëåíèé ïóñòà)";
 		this->toolStripStatusLabel1->BackColor = System::Drawing::Color::Khaki;
 	}
 }

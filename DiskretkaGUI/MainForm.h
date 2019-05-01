@@ -5,6 +5,8 @@
 #include "ModuleDescriptionForm.h"
 #include "AboutProgramForm.h"
 #include "SettingsForm.h"
+#include "HistoryForm.h"
+#include "HistoryElement.h"
 
 namespace DiskretkaGUI {
 
@@ -21,8 +23,10 @@ namespace DiskretkaGUI {
 	bool SAVE_ERRORS;
 	int INPUT_FIELDS_FONT_SIZE;
 	int OUTPUT_FIELD_FONT_SIZE;
-	bool IS_CHANGED;
-	bool IS_SAVED;
+	bool SETTINGS_IS_CHANGED;
+	bool SETTINGS_IS_SAVED;
+	bool HISTORY_IS_UPDATED;
+	History HISTORY;
 
 	/// <summary>
 	/// Ñâîäêà äëÿ MainForm
@@ -72,6 +76,7 @@ namespace DiskretkaGUI {
 	private: System::Windows::Forms::ToolStripMenuItem^ ñïðàâêàToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ îïèñàíèåÌîäóëåéToolStripMenuItem;
 	private: System::Windows::Forms::ToolStripMenuItem^ îÏðîãðàììåToolStripMenuItem;
+	private: System::Windows::Forms::ToolStripMenuItem^ î÷èñòèòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem;
 
 
 
@@ -105,6 +110,7 @@ namespace DiskretkaGUI {
 			this->èñòîðèÿÂû÷èñëåíèéToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->ïîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
+			this->î÷èñòèòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->ïàðàìåòðûToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->ñïðàâêàToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
 			this->îïèñàíèåÌîäóëåéToolStripMenuItem = (gcnew System::Windows::Forms::ToolStripMenuItem());
@@ -287,9 +293,9 @@ namespace DiskretkaGUI {
 			// 
 			// èñòîðèÿÂû÷èñëåíèéToolStripMenuItem
 			// 
-			this->èñòîðèÿÂû÷èñëåíèéToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(2) {
+			this->èñòîðèÿÂû÷èñëåíèéToolStripMenuItem->DropDownItems->AddRange(gcnew cli::array< System::Windows::Forms::ToolStripItem^  >(3) {
 				this->ïîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem,
-					this->ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem
+					this->ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem, this->î÷èñòèòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem
 			});
 			this->èñòîðèÿÂû÷èñëåíèéToolStripMenuItem->Enabled = false;
 			this->èñòîðèÿÂû÷èñëåíèéToolStripMenuItem->Name = L"èñòîðèÿÂû÷èñëåíèéToolStripMenuItem";
@@ -301,12 +307,20 @@ namespace DiskretkaGUI {
 			this->ïîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem->Name = L"ïîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem";
 			this->ïîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem->Size = System::Drawing::Size(308, 22);
 			this->ïîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem->Text = L"Ïîêàçàòü èñòîðèþ âû÷èñëåíèé";
+			this->ïîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::ÏîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem_Click);
 			// 
 			// ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem
 			// 
 			this->ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem->Name = L"ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem";
 			this->ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem->Size = System::Drawing::Size(308, 22);
 			this->ñîõðàíèòüÈñòîðèþÂû÷èñëåíèéÂÔàéëToolStripMenuItem->Text = L"Ñîõðàíèòü èñòîðèþ âû÷èñëåíèé â ôàéë";
+			// 
+			// î÷èñòèòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem
+			// 
+			this->î÷èñòèòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem->Name = L"î÷èñòèòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem";
+			this->î÷èñòèòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem->Size = System::Drawing::Size(308, 22);
+			this->î÷èñòèòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem->Text = L"Î÷èñòèòü èñòîðèþ âû÷èñëåíèé";
+			this->î÷èñòèòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem->Click += gcnew System::EventHandler(this, &MainForm::Î÷èñòèòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem_Click);
 			// 
 			// ïàðàìåòðûToolStripMenuItem
 			// 
@@ -530,6 +544,10 @@ private: System::Void ComboBox1_SelectedIndexChanged(System::Object^ sender, Sys
 }
 
 private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e) {
+	std::string Module = "-";
+	std::string FirstOperand = "-";
+	std::string SecondOperand = "-";
+	std::string Result = "-";
 	try {
 		this->textBox3->Text = "";
 		this->toolStripStatusLabel1->Text = "Âû÷èñëåíèå...";
@@ -537,18 +555,21 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 		switch (this->comboBox1->SelectedIndex) {
 			case 0:
 			{
+				Module = "N-1 - COM_NN_D";
 				N n1, n2;
 				int result;
 				bool initializationIsCorrect = true;
 				try {
-					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					n1 = N(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					n2 = N(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -562,16 +583,19 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
+				Result = std::to_string(result);
 				this->textBox3->Text = result.ToString();
 			}
 			break;
 			case 1:
 			{
+				Module = "N-2 - NZER_N_B";
 				N n;
 				bool result;
 				bool initializationIsCorrect = true;
 				try {
-					n = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					n = N(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
@@ -585,15 +609,18 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
+				Result = std::to_string(result);
 				this->textBox3->Text = result.ToString();
 			}
 			break;
 			case 2:
 			{
+				Module = "N-3 - ADD_1N_N";
 				N n, result;
 				bool initializationIsCorrect = true;
 				try {
-					n = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					n = N(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
@@ -607,22 +634,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 3:
 			{
+				Module = "N-4 - ADD_NN_N";
 				N n1, n2, result;
 				bool initializationIsCorrect = true;
 				try {
-					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					n1 = N(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					n2 = N(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -636,22 +667,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 4:
 			{
+				Module = "N-5 - SUB_NN_N";
 				N n1, n2, result;
 				bool initializationIsCorrect = true;
 				try {
-					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					n1 = N(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					n2 = N(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -665,22 +700,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 5:
 			{
+				Module = "N-6 - MUL_ND_N";
 				N n1, n2, result;
 				bool initializationIsCorrect = true;
 				try {
-					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					n1 = N(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					n2 = N(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -694,22 +733,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 6:
 			{
+				Module = "N-7 - MUL_Nk_N";
 				N n1, n2, result;
 				bool initializationIsCorrect = true;
 				try {
-					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					n1 = N(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					n2 = N(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -723,22 +766,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 7:
 			{
+				Module = "N-8 - MUL_NN_N";
 				N n1, n2, result;
 				bool initializationIsCorrect = true;
 				try {
-					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					n1 = N(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					n2 = N(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -752,22 +799,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 8:
 			{
+				Module = "N-9 - MUL_NN_N";
 				N n1, n2, result;
 				bool initializationIsCorrect = true;
 				try {
-					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					n1 = N(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					n2 = N(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -781,23 +832,27 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 9:
 			{
+				Module = "N-10 - DIV_NN_Dk";
 				N n1, n2;
 				int result, k;
 				bool initializationIsCorrect = true;
 				try {
-					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					n1 = N(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					n2 = N(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -811,22 +866,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
+				Result = std::to_string(result);
 				this->textBox3->Text = result.ToString();
 			}
 			break;
 			case 10:
 			{
+				Module = "N-11 - DIV_NN_N";
 				N n1, n2, result;
 				bool initializationIsCorrect = true;
 				try {
-					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					n1 = N(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					n2 = N(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -840,22 +899,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 11:
 			{
+				Module = "N-12 - MOD_NN_N";
 				N n1, n2, result;
 				bool initializationIsCorrect = true;
 				try {
-					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					n1 = N(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					n2 = N(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -869,22 +932,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 12:
 			{
+				Module = "N-13 - GCF_NN_N";
 				N n1, n2, result;
 				bool initializationIsCorrect = true;
 				try {
-					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					n1 = N(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					n2 = N(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -898,22 +965,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 13:
 			{
+				Module = "N-14 - LCM_NN_N";
 				N n1, n2, result;
 				bool initializationIsCorrect = true;
 				try {
-					n1 = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					n1 = N(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					n2 = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					n2 = N(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -927,16 +998,19 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 14:
 			{
+				Module = "Z-1 - ABS_Z_N";
 				Z z;
 				N result;
 				bool initializationIsCorrect = true;
 				try {
-					z = Z(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					z = Z(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
@@ -950,16 +1024,19 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 15:
 			{
+				Module = "Z-2 - POZ_Z_D";
 				Z z;
 				int result;
 				bool initializationIsCorrect = true;
 				try {
-					z = Z(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					z = Z(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
@@ -973,15 +1050,18 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
+				Result = std::to_string(result);
 				this->textBox3->Text = result.ToString();
 			}
 			break;
 			case 16:
 			{
+				Module = "Z-3 - MUL_ZM_Z";
 				Z z, result;
 				bool initializationIsCorrect = true;
 				try {
-					z = Z(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					z = Z(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
@@ -995,16 +1075,19 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 17:
 			{
+				Module = "Z-4 - TRANS_N_Z";
 				N n;
 				Z result;
 				bool initializationIsCorrect = true;
 				try {
-					n = N(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					n = N(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
@@ -1018,16 +1101,19 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 18:
 			{
+				Module = "Z-5 - TRANS_Z_N";
 				Z z;
 				N result;
 				bool initializationIsCorrect = true;
 				try {
-					z = Z(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					z = Z(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
@@ -1041,22 +1127,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 19:
 			{
+				Module = "Z-6 - ADD_ZZ_Z";
 				Z z1, z2, result;
 				bool initializationIsCorrect = true;
 				try {
-					z1 = Z(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					z1 = Z(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					z2 = Z(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					z2 = Z(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -1070,22 +1160,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 20:
 			{
+				Module = "Z-7 - SUB_ZZ_Z";
 				Z z1, z2, result;
 				bool initializationIsCorrect = true;
 				try {
-					z1 = Z(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					z1 = Z(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					z2 = Z(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					z2 = Z(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -1099,22 +1193,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 21:
 			{
+				Module = "Z-8 - MUL_ZZ_Z";
 				Z z1, z2, result;
 				bool initializationIsCorrect = true;
 				try {
-					z1 = Z(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					z1 = Z(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					z2 = Z(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					z2 = Z(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -1128,23 +1226,27 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 22:
 			{
+				Module = "Z-9 - DIV_ZN_Z";
 				Z z, result;
 				N n;
 				bool initializationIsCorrect = true;
 				try {
-					z = Z(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					z = Z(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					n = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					n = N(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -1158,23 +1260,27 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 23:
 			{
+				Module = "Z-10 - MOD_ZN_Z";
 				Z z, result;
 				N n;
 				bool initializationIsCorrect = true;
 				try {
-					z = Z(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					z = Z(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					n = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					n = N(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -1188,15 +1294,18 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 24:
 			{
+				Module = "Q-1 - RED_Q_Q";
 				Q q, result;
 				bool initializationIsCorrect = true;
 				try {
-					q = Q(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					q = Q(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
@@ -1210,16 +1319,19 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 25:
 			{
+				Module = "Q-2 - INT_Q_B";
 				Q q;
 				bool result;
 				bool initializationIsCorrect = true;
 				try {
-					q = Q(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					q = Q(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
@@ -1233,16 +1345,19 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
+				Result = std::to_string(result);
 				this->textBox3->Text = result.ToString();
 			}
 			break;
 			case 26:
 			{
+				Module = "Q-3 - TRANS_Z_Q";
 				Z z;
 				Q result;
 				bool initializationIsCorrect = true;
 				try {
-					z = Z(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					z = Z(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
@@ -1256,16 +1371,19 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 27:
 			{
+				Module = "Q-4 - TRANS_Q_Z";
 				Q q;
 				Z result;
 				bool initializationIsCorrect = true;
 				try {
-					q = Q(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					q = Q(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
@@ -1279,22 +1397,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 28:
 			{
+				Module = "Q-5 - ADD_QQ_Q";
 				Q q1, q2, result;
 				bool initializationIsCorrect = true;
 				try {
-					q1 = Q(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					q1 = Q(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					q2 = Q(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					q2 = Q(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -1308,22 +1430,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 29:
 			{
+				Module = "Q-6 - SUB_QQ_Q";
 				Q q1, q2, result;
 				bool initializationIsCorrect = true;
 				try {
-					q1 = Q(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					q1 = Q(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					q2 = Q(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					q2 = Q(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -1337,22 +1463,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 30:
 			{
+				Module = "Q-7 - MUL_QQ_Q";
 				Q q1, q2, result;
 				bool initializationIsCorrect = true;
 				try {
-					q1 = Q(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					q1 = Q(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					q2 = Q(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					q2 = Q(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -1366,22 +1496,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 31:
 			{
+				Module = "Q-8 - DIV_QQ_Q";
 				Q q1, q2, result;
 				bool initializationIsCorrect = true;
 				try {
-					q1 = Q(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					q1 = Q(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					q2 = Q(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					q2 = Q(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -1395,22 +1529,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 32:
 			{
+				Module = "P-1 - ADD_PP_P";
 				P p1, p2, result;
 				bool initializationIsCorrect = true;
 				try {
-					p1 = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					p1 = P(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					p2 = P(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					p2 = P(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -1424,22 +1562,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 33:
 			{
+				Module = "P-2 - SUB_PP_P";
 				P p1, p2, result;
 				bool initializationIsCorrect = true;
 				try {
-					p1 = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					p1 = P(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					p2 = P(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					p2 = P(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -1453,23 +1595,27 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 34:
 			{
+				Module = "P-3 - MUL_PQ_P";
 				P p, result;
 				Q q;
 				bool initializationIsCorrect = true;
 				try {
-					p = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					p = P(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					q = Q(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					q = Q(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -1483,23 +1629,27 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 35:
 			{
+				Module = "P-4 - MUL_Pxk_P";
 				P p, result;
 				N n;
 				bool initializationIsCorrect = true;
 				try {
-					p = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					p = P(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					n = N(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					n = N(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -1513,16 +1663,19 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 36:
 			{
+				Module = "P-5 - LED_P_Q";
 				P p;
 				Q result;
 				bool initializationIsCorrect = true;
 				try {
-					p = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					p = P(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
@@ -1536,16 +1689,19 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 37:
 			{
+				Module = "P-6 - DEG_P_N";
 				P p;
 				N result;
 				bool initializationIsCorrect = true;
 				try {
-					p = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					p = P(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
@@ -1559,16 +1715,19 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 38:
 			{
+				Module = "P-7 - FAC_P_Q";
 				P p;
 				Q result;
 				bool initializationIsCorrect = true;
 				try {
-					p = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					p = P(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
@@ -1582,22 +1741,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 39:
 			{
+				Module = "P-8 - MUL_PP_P";
 				P p1, p2, result;
 				bool initializationIsCorrect = true;
 				try {
-					p1 = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					p1 = P(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					p2 = P(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					p2 = P(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -1611,22 +1774,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 40:
 			{
+				Module = "P-9 - DIV_PP_P";
 				P p1, p2, result;
 				bool initializationIsCorrect = true;
 				try {
-					p1 = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					p1 = P(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					p2 = P(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					p2 = P(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -1640,22 +1807,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 41:
 			{
+				Module = "P-10 - MOD_PP_P";
 				P p1, p2, result;
 				bool initializationIsCorrect = true;
 				try {
-					p1 = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					p1 = P(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					p2 = P(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					p2 = P(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -1669,22 +1840,26 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 42:
 			{
+				Module = "P-11 - GCF_PP_P";
 				P p1, p2, result;
 				bool initializationIsCorrect = true;
 				try {
-					p1 = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					p1 = P(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
 					initializationIsCorrect = false;
 				}
 				try {
-					p2 = P(msclr::interop::marshal_as<std::string>(this->textBox2->Text));
+					SecondOperand = msclr::interop::marshal_as<std::string>(this->textBox2->Text);
+					p2 = P(SecondOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox2->ForeColor = System::Drawing::Color::Red;
@@ -1698,15 +1873,18 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 43:
 			{
+				Module = "P-12 - DER_P_P";
 				P p, result;
 				bool initializationIsCorrect = true;
 				try {
-					p = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					p = P(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
@@ -1720,15 +1898,18 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			case 44:
 			{
+				Module = "P-13 - DER_P_P";
 				P p, result;
 				bool initializationIsCorrect = true;
 				try {
-					p = P(msclr::interop::marshal_as<std::string>(this->textBox1->Text));
+					FirstOperand = msclr::interop::marshal_as<std::string>(this->textBox1->Text);
+					p = P(FirstOperand);
 				}
 				catch (IncorrectString) {
 					this->textBox1->ForeColor = System::Drawing::Color::Red;
@@ -1742,7 +1923,8 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 				catch (ArithmeticalError ex) {
 					throw Error(ex.what());
 				}
-				this->textBox3->Text = msclr::interop::marshal_as<String^>(result.ToString());
+				Result = result.ToString();
+				this->textBox3->Text = msclr::interop::marshal_as<String^>(Result);
 			}
 			break;
 			default:
@@ -1752,18 +1934,58 @@ private: System::Void Button1_Click(System::Object^ sender, System::EventArgs^ e
 		}
 		this->toolStripStatusLabel1->Text = "Ãîòîâî";
 		this->toolStripStatusLabel1->BackColor = System::Drawing::Color::SkyBlue;
+		if (SAVE_HISTORY) {
+			try {
+				HISTORY.push_back(HistoryElement(Module, FirstOperand, SecondOperand, Result));
+				HISTORY_IS_UPDATED = true;
+			}
+			catch (std::bad_alloc) {
+				this->toolStripStatusLabel1->Text = "Ïðåäóïðåæäåíèå: îïåðàöèÿ âûïîëíåíà, íî íå ñîõðàíåíà â èñòîðèþ (íåäîñòàòî÷íî ïàìÿòè)";
+				this->toolStripStatusLabel1->BackColor = System::Drawing::Color::Khaki;
+			}
+		}
 	}
 	catch (Error ex) {
 		this->toolStripStatusLabel1->Text = msclr::interop::marshal_as<String^>(ex.what());
 		this->toolStripStatusLabel1->BackColor = System::Drawing::Color::LightCoral;
+		Result = ex.what();
+		if (SAVE_HISTORY && SAVE_ERRORS) {
+			try {
+				HISTORY.push_back(HistoryElement(Module, FirstOperand, SecondOperand, Result));
+				HISTORY_IS_UPDATED = true;
+			}
+			catch (std::bad_alloc) {
+				this->toolStripStatusLabel1->Text = msclr::interop::marshal_as<String^>(ex.what()) + " ( + íåäîñòàòî÷íî ïàìÿòè, ÷òîáû çàïèñàòü îøèáêó â èñòîðèþ)";
+			}
+		}
 	}
 	catch (std::bad_alloc) {
 		this->toolStripStatusLabel1->Text = "Îøèáêà: íåäîñòàòî÷íî ïàìÿòè";
 		this->toolStripStatusLabel1->BackColor = System::Drawing::Color::LightCoral;
+		Result = "Îøèáêà: íåäîñòàòî÷íî ïàìÿòè";
+		if (SAVE_HISTORY && SAVE_ERRORS) {
+			try {
+				HISTORY.push_back(HistoryElement(Module, FirstOperand, SecondOperand, Result));
+				HISTORY_IS_UPDATED = true;
+			}
+			catch (std::bad_alloc) {
+				this->toolStripStatusLabel1->Text = "Îøèáêà: íåäîñòàòî÷íî ïàìÿòè" + " ( + íåäîñòàòî÷íî ïàìÿòè, ÷òîáû çàïèñàòü îøèáêó â èñòîðèþ)";
+			}
+		}
 	}
 	catch (...) {
 		this->toolStripStatusLabel1->Text = "Îøèáêà: íåèçâåñòíàÿ îøèáêà (ìåñòî: âû÷èñëåíèå)";
 		this->toolStripStatusLabel1->BackColor = System::Drawing::Color::LightCoral;
+		Result = "Îøèáêà: íåèçâåñòíàÿ îøèáêà (ìåñòî: âû÷èñëåíèå)";
+		if (SAVE_HISTORY && SAVE_ERRORS) {
+			try {
+				HISTORY.push_back(HistoryElement(Module, FirstOperand, SecondOperand, Result));
+				HISTORY_IS_UPDATED = true;
+			}
+			catch (std::bad_alloc) {
+				this->toolStripStatusLabel1->Text = "Îøèáêà: íåäîñòàòî÷íî ïàìÿòè" + " ( + íåäîñòàòî÷íî ïàìÿòè, ÷òîáû çàïèñàòü îøèáêó â èñòîðèþ)";
+			}
+		}
 	}
 }
 
@@ -1795,21 +2017,45 @@ private: System::Void TextBox2_TextChanged(System::Object^ sender, System::Event
 	this->textBox2->ForeColor = System::Drawing::SystemColors::WindowText;
 }
 
+ModuleDescriptionForm^ moduleDescriptionForm;
+
 private: System::Void MyForm_HelpButtonClicked(System::Object^ sender, System::ComponentModel::CancelEventArgs^ e) {
-	ModuleDescriptionForm^ moduleDescriptionForm = gcnew ModuleDescriptionForm();
-	moduleDescriptionForm->Show();
+	if (moduleDescriptionForm == nullptr || moduleDescriptionForm->IsDisposed) {
+		moduleDescriptionForm = gcnew ModuleDescriptionForm();
+		moduleDescriptionForm->Show();
+	}
+	else
+		moduleDescriptionForm->Focus();
 }
+
 private: System::Void MainForm_HelpRequested(System::Object^ sender, System::Windows::Forms::HelpEventArgs^ hlpevent) {
-	ModuleDescriptionForm^ moduleDescriptionForm = gcnew ModuleDescriptionForm();
-	moduleDescriptionForm->Show();
+	if (moduleDescriptionForm == nullptr || moduleDescriptionForm->IsDisposed) {
+		moduleDescriptionForm = gcnew ModuleDescriptionForm();
+		moduleDescriptionForm->Show();
+	}
+	else
+		moduleDescriptionForm->Focus();
 }
+
 private: System::Void ÎïèñàíèåÌîäóëåéToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-	ModuleDescriptionForm^ moduleDescriptionForm = gcnew ModuleDescriptionForm();
-	moduleDescriptionForm->Show();
+	if (moduleDescriptionForm == nullptr || moduleDescriptionForm->IsDisposed) {
+		moduleDescriptionForm = gcnew ModuleDescriptionForm();
+		moduleDescriptionForm->Show();
+	}
+	else
+		moduleDescriptionForm->Focus();
 }
+
+AboutProgramForm^ aboutProgramForm;
+
 private: System::Void ÎÏðîãðàììåToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-	AboutProgramForm^ aboutProgramForm = gcnew AboutProgramForm();
-	aboutProgramForm->Show();
+	if (aboutProgramForm == nullptr || aboutProgramForm->IsDisposed) {
+
+		aboutProgramForm = gcnew AboutProgramForm();
+		aboutProgramForm->Show();
+	}
+	else 
+		aboutProgramForm->Focus();
 }
 
 private: void CreateConfigFile() {
@@ -1823,7 +2069,7 @@ private: void SetDefaultSettings() {
 	SAVE_ERRORS = true;
 	INPUT_FIELDS_FONT_SIZE = 11;
 	OUTPUT_FIELD_FONT_SIZE = 11;
-	IS_CHANGED = true;
+	SETTINGS_IS_CHANGED = true;
 }
 
 private: void ApplySettings() {
@@ -1831,7 +2077,7 @@ private: void ApplySettings() {
 	this->textBox2->Font = gcnew System::Drawing::Font(textBox2->Font->FontFamily, (float)INPUT_FIELDS_FONT_SIZE);
 	this->textBox3->Font = gcnew System::Drawing::Font(textBox3->Font->FontFamily, (float)OUTPUT_FIELD_FONT_SIZE);
 	this->èñòîðèÿÂû÷èñëåíèéToolStripMenuItem->Enabled = SAVE_HISTORY;
-	IS_CHANGED = false;
+	SETTINGS_IS_CHANGED = false;
 }
 
 private: System::Void MainForm_Load(System::Object^ sender, System::EventArgs^ e) {
@@ -1857,7 +2103,7 @@ private: System::Void MainForm_Load(System::Object^ sender, System::EventArgs^ e
 				OUTPUT_FIELD_FONT_SIZE = int::Parse(str);
 			else
 				throw std::exception();
-			IS_CHANGED = true;
+			SETTINGS_IS_CHANGED = true;
 		}
 		catch (...) { 
 			try {
@@ -1872,6 +2118,7 @@ private: System::Void MainForm_Load(System::Object^ sender, System::EventArgs^ e
 				SetDefaultSettings();
 			}
 		}
+		HISTORY_IS_UPDATED = true;
 	}
 	else {
 		try {
@@ -1889,14 +2136,53 @@ private: System::Void MainForm_Load(System::Object^ sender, System::EventArgs^ e
 	ApplySettings();
 }
 
+SettingsForm^ settingsForm;
+
 private: System::Void ÏàðàìåòðûToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
-	SettingsForm^ settingsForm = gcnew SettingsForm();
-	settingsForm->Owner = this;
-	settingsForm->Show();
+	if (settingsForm == nullptr || settingsForm->IsDisposed) {
+		settingsForm = gcnew SettingsForm();
+		settingsForm->Show();
+	}
+	else
+		settingsForm->Focus();
 }
+
 private: System::Void MainForm_Activated(System::Object^ sender, System::EventArgs^ e) {
-	if (IS_CHANGED)
+	if (SETTINGS_IS_CHANGED)
 		ApplySettings();
+}
+
+private: System::Void Î÷èñòèòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (HISTORY.size()) {
+		System::Windows::Forms::DialogResult dialog = MessageBox::Show("Âû äåéñòâèòåëüíî æåëàåòå î÷èñòèòü èñòîðèþ âû÷èñëåíèé?", "Î÷èñòêà èñòîðèè âû÷èñëåíèé", MessageBoxButtons::YesNo, MessageBoxIcon::Question);
+		if (dialog == System::Windows::Forms::DialogResult::Yes) {
+			HISTORY.clear();
+			this->toolStripStatusLabel1->Text = "Èñòîðèÿ âû÷èñëåíèé î÷èùåíà";
+			this->toolStripStatusLabel1->BackColor = System::Drawing::Color::SkyBlue;
+		}
+	}
+	else {
+		this->toolStripStatusLabel1->Text = "Ïðåäóïðåæäåíèå: î÷èñòêà íå âûïîëíåíà (èñòîðèÿ âû÷èñëåíèé ïóñòà)";
+		this->toolStripStatusLabel1->BackColor = System::Drawing::Color::Khaki;
+	}
+	HISTORY_IS_UPDATED = true;
+}
+
+HistoryForm^ historyForm;
+
+private: System::Void ÏîêàçàòüÈñòîðèþÂû÷èñëåíèéToolStripMenuItem_Click(System::Object^ sender, System::EventArgs^ e) {
+	if (HISTORY.size()) {
+		if (historyForm == nullptr || historyForm->IsDisposed) {
+			historyForm = gcnew HistoryForm();
+			historyForm->Show();
+		}
+		else
+			historyForm->Focus();
+	}
+	else {
+		this->toolStripStatusLabel1->Text = "Ïðåäóïðåæäåíèå: èñòîðèÿ âû÷èñëåíèé ïóñòà";
+		this->toolStripStatusLabel1->BackColor = System::Drawing::Color::Khaki;
+	}
 }
 };
 }

@@ -144,6 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AboutProgramForm.cpp" />
+    <ClCompile Include="HistoryForm.cpp" />
     <ClCompile Include="MainForm.cpp" />
     <ClCompile Include="ModuleDescriptionForm.cpp" />
     <ClCompile Include="N.cpp" />
@@ -161,6 +162,10 @@
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="Exceptions.h" />
+    <ClInclude Include="HistoryElement.h" />
+    <ClInclude Include="HistoryForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
@@ -186,6 +191,9 @@
   <ItemGroup>
     <EmbeddedResource Include="AboutProgramForm.resx">
       <DependentUpon>AboutProgramForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HistoryForm.resx">
+      <DependentUpon>HistoryForm.h</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.h</DependentUpon>

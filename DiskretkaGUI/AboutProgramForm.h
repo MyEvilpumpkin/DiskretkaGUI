@@ -126,5 +126,6 @@ namespace DiskretkaGUI {
 			this->ResumeLayout(false);
 
 		}
+#pragma endregion
 };
 }

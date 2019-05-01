@@ -14,8 +14,8 @@ namespace DiskretkaGUI {
 	extern bool SAVE_ERRORS;
 	extern int INPUT_FIELDS_FONT_SIZE;
 	extern int OUTPUT_FIELD_FONT_SIZE;
-	extern bool IS_CHANGED;
-	extern bool IS_SAVED;
+	extern bool SETTINGS_IS_CHANGED;
+	extern bool SETTINGS_IS_SAVED;
 
 	/// <summary>
 	/// Сводка для SettingsForm
@@ -418,9 +418,10 @@ namespace DiskretkaGUI {
 			this->ResumeLayout(false);
 
 		}
+#pragma endregion
 
 private: System::Void Button2_Click(System::Object^ sender, System::EventArgs^ e) {
-	IS_SAVED = true;
+	SETTINGS_IS_SAVED = true;
 	this->Close();
 }
 
@@ -494,12 +495,12 @@ private: System::Void Button3_Click(System::Object^ sender, System::EventArgs^ e
 			break;
 	}
 	SaveInConfigFile();
-	IS_SAVED = true;
-	IS_CHANGED = true;
+	SETTINGS_IS_SAVED = true;
+	SETTINGS_IS_CHANGED = true;
 	this->Close();
 }
 private: System::Void SettingsForm_Load(System::Object^ sender, System::EventArgs^ e) {
-	IS_SAVED = false;
+	SETTINGS_IS_SAVED = false;
 	this->checkBox1->Checked = SAVE_HISTORY;
 	this->checkBox2->Checked = SAVE_ERRORS;
 	this->checkBox2->Enabled = SAVE_HISTORY;
@@ -615,7 +616,7 @@ private: System::Void SettingsForm_FormClosing(System::Object^ sender, System::W
 			temp2 = 22;
 			break;
 	}
-	if (!IS_SAVED) {
+	if (!SETTINGS_IS_SAVED) {
 		if (this->checkBox1->Checked != SAVE_HISTORY || this->checkBox2->Checked != SAVE_ERRORS || temp1 != INPUT_FIELDS_FONT_SIZE || temp2 != OUTPUT_FIELD_FONT_SIZE) {
 			System::Windows::Forms::DialogResult dialog = MessageBox::Show("Имеются несохранённые данные!\nВы действительно хотите выйти?", "Выход", MessageBoxButtons::YesNo, MessageBoxIcon::Warning);
 			if (dialog == System::Windows::Forms::DialogResult::No)

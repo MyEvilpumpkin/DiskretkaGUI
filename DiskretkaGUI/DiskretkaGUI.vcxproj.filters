@@ -78,6 +78,9 @@
     <ClCompile Include="SettingsForm.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="HistoryForm.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
@@ -130,6 +133,12 @@
     </ClInclude>
     <ClInclude Include="SettingsForm.h">
       <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="HistoryForm.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="HistoryElement.h">
+      <Filter>Файлы заголовков\Additions</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

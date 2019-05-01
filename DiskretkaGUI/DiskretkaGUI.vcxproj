@@ -108,6 +108,9 @@
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>main</EntryPointSymbol>
     </Link>
+    <PostBuildEvent>
+      <Command>copy app.config "$(TargetPath).config"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -133,29 +136,40 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AboutProgramForm.cpp" />
+    <ClCompile Include="HistoryForm.cpp" />
     <ClCompile Include="MainForm.cpp" />
-    <ClCompile Include="HelpForm.cpp" />
+    <ClCompile Include="ModuleDescriptionForm.cpp" />
     <ClCompile Include="N.cpp" />
     <ClCompile Include="NRecognizer.cpp" />
     <ClCompile Include="P.cpp" />
     <ClCompile Include="PRecognizer.cpp" />
     <ClCompile Include="Q.cpp" />
     <ClCompile Include="QRecognizer.cpp" />
+    <ClCompile Include="SettingsForm.cpp" />
     <ClCompile Include="Z.cpp" />
     <ClCompile Include="ZRecognizer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AboutProgramForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="Exceptions.h" />
+    <ClInclude Include="HistoryElement.h" />
+    <ClInclude Include="HistoryForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="MainForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
-    <ClInclude Include="HelpForm.h">
+    <ClInclude Include="ModuleDescriptionForm.h">
       <FileType>CppForm</FileType>
     </ClInclude>
     <ClInclude Include="N.h" />
@@ -166,18 +180,30 @@
     <ClInclude Include="QRecognizer.h" />
     <ClInclude Include="Recognizer.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="SettingsForm.h">
+      <FileType>CppForm</FileType>
+    </ClInclude>
     <ClInclude Include="SpecialType.h" />
     <ClInclude Include="TemplateOperations.h" />
     <ClInclude Include="Z.h" />
     <ClInclude Include="ZRecognizer.h" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AboutProgramForm.resx">
+      <DependentUpon>AboutProgramForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="HistoryForm.resx">
+      <DependentUpon>HistoryForm.h</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.h</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="HelpForm.resx">
-      <DependentUpon>HelpForm.h</DependentUpon>
+    <EmbeddedResource Include="ModuleDescriptionForm.resx">
+      <DependentUpon>ModuleDescriptionForm.h</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SettingsForm.resx">
+      <DependentUpon>SettingsForm.h</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +211,9 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
